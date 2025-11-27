@@ -1,584 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Mora Systems – Software para negocios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sistemas simples de inventario, citas y ventas para negocios pequeños y medianos." />
-  <style>
-    :root {
-      --bg: #f5f5f1;
-      --bg-soft: #ffffff;
-      --border: #e1e1dd;
-      --text: #111111;
-      --muted: #6f6f67;
-      --accent: #111111;
-      --accent-soft: #dbd40f;
-      --radius: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* HEADER */
-
-    header {
-      border-bottom: 1px solid var(--border);
-      background: #f8f8f4;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid #c9c9c0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .brand-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .brand-tagline {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.85rem;
-    }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 0.1rem;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent);
-      transition: width 140ms ease-out;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      padding: 0.5rem 1.1rem;
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--text);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #f5f5f1;
-      border-color: var(--accent);
-    }
-
-    .btn-icon {
-      font-size: 0.8rem;
-    }
-
-    .nav-toggle {
-      display: none;
-      border: none;
-      background: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .nav-menu-mobile {
-      display: none;
-      border-top: 1px solid var(--border);
-      background: #f8f8f4;
-    }
-
-    .nav-menu-mobile-inner {
-      padding: 0.75rem 1.5rem 1rem;
-      display: grid;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-    }
-
-    .nav-menu-mobile-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.25rem;
-    }
-
-    /* HERO */
-
-    main {
-      padding-bottom: 3rem;
-    }
-
-    .hero {
-      padding: 3rem 0 2.5rem;
-      border-bottom: 1px solid var(--border);
-      background: #f8f8f4;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 2.5rem;
-      align-items: flex-end;
-    }
-
-    .hero-kicker {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-title {
-      font-size: clamp(1.9rem, 3vw, 2.3rem);
-      line-height: 1.1;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-title strong {
-      font-weight: 600;
-    }
-
-    .hero-sub {
-      font-size: 0.95rem;
-      color: var(--muted);
-      max-width: 28rem;
-      margin-bottom: 1.1rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.1rem;
-    }
-
-    .hero-tag {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 0.25rem 0.7rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      background: #ffffff;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .hero-card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--bg-soft);
-      padding: 1rem 1rem 1rem;
-      display: grid;
-      gap: 1rem;
-    }
-
-    .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-    }
-
-    .hero-card-title {
-      font-weight: 500;
-    }
-
-    .hero-pill {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 0.15rem 0.6rem;
-      font-size: 0.75rem;
-      background: #f5f5f1;
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    .metric-label {
-      color: var(--muted);
-      font-size: 0.78rem;
-      margin-bottom: 0.1rem;
-    }
-
-    .metric-value {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    /* SECTIONS */
-
-    .section {
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-header {
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
-    .section-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-
-    .section-title {
-      font-size: 1.3rem;
-      font-weight: 500;
-    }
-
-    .section-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      max-width: 22rem;
-    }
-
-    /* SERVICES */
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--bg-soft);
-      padding: 1rem;
-      display: grid;
-      gap: 0.55rem;
-      font-size: 0.85rem;
-    }
-
-    .card-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .card-text {
-      color: var(--muted);
-    }
-
-    .card-list {
-      list-style: none;
-      display: grid;
-      gap: 0.25rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .card-list li::before {
-      content: "– ";
-    }
-
-    /* PROCESS */
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.9rem;
-      font-size: 0.82rem;
-    }
-
-    .step {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: #f8f8f4;
-      padding: 0.9rem;
-      display: grid;
-      gap: 0.3rem;
-    }
-
-    .step-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .step-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    /* CONTACT */
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 2rem;
-    }
-
-    .contact-card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--bg-soft);
-      padding: 1.1rem 1rem;
-      font-size: 0.86rem;
-    }
-
-    .contact-card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .contact-card p {
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 0.7rem;
-    }
-
-    .field {
-      display: grid;
-      gap: 0.25rem;
-      font-size: 0.8rem;
-    }
-
-    .field label {
-      font-weight: 400;
-    }
-
-    input,
-    select,
-    textarea {
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      padding: 0.5rem 0.65rem;
-      font-size: 0.86rem;
-      outline: none;
-      color: var(--text);
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #b0b0a7;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.7rem;
-    }
-
-    .form-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .contact-side {
-      font-size: 0.8rem;
-      color: var(--muted);
-      display: grid;
-      gap: 0.7rem;
-    }
-
-    .contact-item {
-      padding: 0.8rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: #f8f8f4;
-    }
-
-    .contact-item strong {
-      display: block;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-
-    /* FOOTER */
-
-    footer {
-      padding: 1.2rem 0 1.5rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .footer-inner {
-      border-top: 1px solid var(--border);
-      padding-top: 0.9rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 960px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 2rem;
-      }
-
-      .services-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .process-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .contact-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links,
-      .nav-cta {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: block;
-      }
-
-      .services-grid,
-      .process-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero {
-        padding-top: 2.3rem;
-      }
-    }
-  </style>
+  <meta name="description"
+    content="Sistemas simples de inventario, citas y ventas para negocios pequeños y medianos." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+  <div class="bg-animated"></div>
+  <div class="cursor-orb"></div>
+
   <header>
     <div class="wrapper nav">
-      <a href="#inicio" class="brand">
+      <a href="#inicio" class="brand" data-scroll="#inicio">
         <div class="brand-mark">MS</div>
         <div class="brand-text">
           <span class="brand-name">Mora Systems</span>
@@ -587,16 +25,16 @@
       </a>
 
       <nav class="nav-links" aria-label="Navegación principal">
-        <a href="#servicios">Servicios</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#servicios" data-scroll="#servicios">Servicios</a>
+        <a href="#proceso" data-scroll="#proceso">Proceso</a>
+        <a href="#contacto" data-scroll="#contacto">Contacto</a>
       </nav>
 
       <div class="nav-cta">
-        <button class="btn" data-scroll="#servicios">
+        <button class="btn btn-outline" data-scroll="#servicios">
           Ver soluciones
         </button>
-        <button class="btn btn-primary" data-scroll="#contacto">
+        <button class="btn btn-black" data-scroll="#contacto">
           <span>Hablar ahora</span>
           <span class="btn-icon">→</span>
         </button>
@@ -613,10 +51,10 @@
         <a href="#proceso" data-scroll="#proceso">Proceso</a>
         <a href="#contacto" data-scroll="#contacto">Contacto</a>
         <div class="nav-menu-mobile-cta">
-          <button class="btn" data-scroll="#servicios" style="flex:1;">
+          <button class="btn btn-outline" data-scroll="#servicios" style="flex:1;">
             Ver soluciones
           </button>
-          <button class="btn btn-primary" data-scroll="#contacto" style="flex:1;">
+          <button class="btn btn-black" data-scroll="#contacto" style="flex:1;">
             Agenda una llamada
           </button>
         </div>
@@ -625,7 +63,6 @@
   </header>
 
   <main id="inicio">
-    <!-- HERO -->
     <section class="hero">
       <div class="wrapper hero-grid">
         <div>
@@ -634,25 +71,26 @@
             Sistemas simples para <strong>inventario, citas y ventas</strong>.
           </h1>
           <p class="hero-sub">
-            Menos hojas sueltas y menos Excel. Un panel claro para ver cómo está tu negocio hoy.
+            Un panel claro para saber cómo está tu negocio hoy, sin pelearte con Excel.
           </p>
 
           <div class="hero-tags">
-            <span class="hero-tag">Inventario al día</span>
-            <span class="hero-tag">Agenda online</span>
-            <span class="hero-tag">Ventas y reportes básicos</span>
+            <span class="hero-tag hero-tag-green">Inventario al día</span>
+            <span class="hero-tag hero-tag-blue">Agenda online</span>
+            <span class="hero-tag hero-tag-yellow">Reportes básicos</span>
+            <span class="hero-tag hero-tag-red">Equipos pequeños</span>
           </div>
 
           <div class="hero-actions">
-            <button class="btn btn-primary" data-scroll="#contacto">
+            <button class="btn btn-black" data-scroll="#contacto">
               Solicitar demo
             </button>
-            <button class="btn" data-scroll="#servicios">
+            <button class="btn btn-outline" data-scroll="#servicios">
               Ver módulos
             </button>
           </div>
           <div class="hero-note">
-            Implementación guiada · Pensado para equipos pequeños
+            Implementación guiada · Pensado para negocios pequeños y medianos
           </div>
         </div>
 
@@ -685,60 +123,70 @@
       </div>
     </section>
 
-    <!-- SERVICES -->
     <section id="servicios" class="section">
       <div class="wrapper">
         <div class="section-header">
           <div>
             <div class="section-eyebrow">Servicios</div>
-            <h2 class="section-title">Tres módulos, lo esencial primero</h2>
+            <h2 class="section-title">Tres módulos, lo esencial</h2>
           </div>
           <p class="section-note">
-            Elige uno o combínalos según lo que más te duele hoy.
+            Usa uno o combínalos según lo que más necesites ahora.
           </p>
         </div>
 
         <div class="services-grid">
-          <article class="card">
-            <h3 class="card-title">Inventario</h3>
-            <p class="card-text">
-              Registro simple de productos y movimientos, sin enredarse.
-            </p>
+          <article class="card card-inventario">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Inventario</h3>
+                <p class="card-text">
+                  Control básico de productos y stock.
+                </p>
+              </div>
+              <div class="card-icon">📦</div>
+            </div>
             <ul class="card-list">
-              <li>Productos con código y precio.</li>
-              <li>Entradas y salidas con historial.</li>
-              <li>Avisos de poco stock.</li>
+              <li>Códigos, precios y stock mínimo.</li>
+              <li>Historial de entradas y salidas.</li>
             </ul>
           </article>
 
-          <article class="card">
-            <h3 class="card-title">Citas</h3>
-            <p class="card-text">
-              Agenda por día, servicio o profesional, desde web.
-            </p>
+          <article class="card card-citas">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Citas</h3>
+                <p class="card-text">
+                  Agenda única para todo el equipo.
+                </p>
+              </div>
+              <div class="card-icon">📅</div>
+            </div>
             <ul class="card-list">
-              <li>Citas en un solo calendario.</li>
-              <li>Reservas online básicas.</li>
-              <li>Recordatorios por correo.</li>
+              <li>Citas por servicio o profesional.</li>
+              <li>Reservas online simples.</li>
             </ul>
           </article>
 
-          <article class="card">
-            <h3 class="card-title">Ventas & reportes</h3>
-            <p class="card-text">
-              Registra ventas y ve resúmenes sin fórmulas raras.
-            </p>
+          <article class="card card-ventas">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Ventas y reportes</h3>
+                <p class="card-text">
+                  Resumen claro de cómo va el mes.
+                </p>
+              </div>
+              <div class="card-icon">💳</div>
+            </div>
             <ul class="card-list">
               <li>Ventas por día y medio de pago.</li>
-              <li>Historial por cliente.</li>
-              <li>Exportación para tu contador.</li>
+              <li>Exportes para tu contador.</li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- PROCESS -->
     <section id="proceso" class="section">
       <div class="wrapper">
         <div class="section-header">
@@ -747,7 +195,7 @@
             <h2 class="section-title">Cómo trabajamos contigo</h2>
           </div>
           <p class="section-note">
-            Camino corto, sin tecnicismos innecesarios.
+            Pocos pasos, sin tecnicismos raros.
           </p>
         </div>
 
@@ -755,28 +203,27 @@
           <div class="step">
             <div class="step-label">Paso 1</div>
             <div class="step-title">Llamada breve</div>
-            <p>Entendemos tu negocio y qué quieres ordenar primero.</p>
+            <p>Entendemos tu negocio y el problema principal.</p>
           </div>
           <div class="step">
             <div class="step-label">Paso 2</div>
-            <div class="step-title">Propuesta simple</div>
-            <p>Te digo qué módulo usar y un valor estimado.</p>
+            <div class="step-title">Propuesta</div>
+            <p>Definimos módulos, tiempos y costo estimado.</p>
           </div>
           <div class="step">
             <div class="step-label">Paso 3</div>
             <div class="step-title">Configuración</div>
-            <p>Cargamos datos básicos y dejamos todo listo.</p>
+            <p>Cargamos datos básicos y dejamos listo para usar.</p>
           </div>
           <div class="step">
             <div class="step-label">Paso 4</div>
-            <div class="step-title">Uso diario</div>
-            <p>Te acompaño las primeras semanas y ajustamos.</p>
+            <div class="step-title">Acompañamiento</div>
+            <p>Te apoyo las primeras semanas y ajustamos.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contacto" class="section">
       <div class="wrapper">
         <div class="section-header">
@@ -792,7 +239,7 @@
         <div class="contact-grid">
           <div class="contact-card">
             <h3>Agenda una llamada o pide una demo</h3>
-            <p>Completa el formulario y te respondo con opciones de horario.</p>
+            <p>Te respondo con un horario que se ajuste a ti.</p>
 
             <form id="contactForm" class="form-grid" novalidate>
               <div class="field">
@@ -824,11 +271,12 @@
 
               <div class="field">
                 <label for="mensaje">Situación en pocas líneas</label>
-                <textarea id="mensaje" name="mensaje" placeholder="Ej: Manejo todo en Excel y pierdo control del stock."></textarea>
+                <textarea id="mensaje" name="mensaje"
+                  placeholder="Ej: Manejo todo en Excel y pierdo control del stock."></textarea>
               </div>
 
               <div style="display:flex; flex-wrap:wrap; gap:0.7rem; align-items:center;">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-black">
                   Enviar mensaje
                 </button>
                 <span class="form-note" id="formStatus">
@@ -841,15 +289,15 @@
           <aside class="contact-side">
             <div class="contact-item">
               <strong>Empezar pequeño está bien.</strong>
-              <span>Podemos arrancar con un solo módulo y luego sumar el resto.</span>
+              <span>Podemos arrancar con un solo módulo.</span>
             </div>
             <div class="contact-item">
               <strong>Idioma y horarios flexibles.</strong>
-              <span>Atención en español, adaptado a horarios de Latinoamérica.</span>
+              <span>Atención en español, horarios de Latam.</span>
             </div>
             <div class="contact-item">
               <strong>Menos ruido técnico.</strong>
-              <span>Hablamos de operaciones y ventas; la parte técnica la traduzco yo.</span>
+              <span>Hablamos de operaciones, no de siglas raras.</span>
             </div>
           </aside>
         </div>
@@ -861,89 +309,14 @@
     <div class="wrapper footer-inner">
       <span>© <span id="year"></span> Mora Systems.</span>
       <div class="footer-links">
-        <a href="#servicios">Servicios</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#contacto">Contacto</a>
+        <button class="link-btn" data-scroll="#servicios">Servicios</button>
+        <button class="link-btn" data-scroll="#proceso">Proceso</button>
+        <button class="link-btn" data-scroll="#contacto">Contacto</button>
       </div>
     </div>
   </footer>
 
-  <script>
-    // Año en footer
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Smooth scroll
-    function scrollToTarget(target) {
-      const el = document.querySelector(target);
-      if (!el) return;
-      const header = document.querySelector("header");
-      const offset = (header?.offsetHeight || 60) + 8;
-      const top = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-
-    document.querySelectorAll("[data-scroll]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        const target = el.getAttribute("data-scroll");
-        if (target) scrollToTarget(target);
-      });
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach((el) => {
-      el.addEventListener("click", (e) => {
-        const href = el.getAttribute("href");
-        if (!href || href === "#") return;
-        e.preventDefault();
-        scrollToTarget(href);
-      });
-    });
-
-    // Menú móvil
-    const navToggle = document.getElementById("navToggle");
-    const navMenu = document.getElementById("navMenu");
-
-    if (navToggle && navMenu) {
-      navToggle.addEventListener("click", () => {
-        const open = navMenu.style.display === "block";
-        navMenu.style.display = open ? "none" : "block";
-        navToggle.textContent = open ? "☰" : "✕";
-      });
-
-      navMenu.querySelectorAll("[data-scroll]").forEach((el) => {
-        el.addEventListener("click", () => {
-          navMenu.style.display = "none";
-          navToggle.textContent = "☰";
-        });
-      });
-    }
-
-    // Formulario muy básico
-    const form = document.getElementById("contactForm");
-    const statusEl = document.getElementById("formStatus");
-
-    if (form && statusEl) {
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const nombre = form.nombre.value.trim();
-        const email = form.email.value.trim();
-
-        if (!nombre || !email) {
-          statusEl.textContent = "Nombre y correo son obligatorios.";
-          statusEl.style.color = "#b91c1c";
-          return;
-        }
-
-        statusEl.textContent = "Gracias, tu mensaje fue registrado.";
-        statusEl.style.color = "#166534";
-        form.reset();
-
-        setTimeout(() => {
-          statusEl.textContent = "Te responderé por correo.";
-          statusEl.style.color = "";
-        }, 5000);
-      });
-    }
-  </script>
+  <script src="main.js"></script>
 </body>
+
 </html>
