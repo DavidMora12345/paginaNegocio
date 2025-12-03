@@ -1,10 +1,6 @@
-/* Importar Tailwind v4 */
 @import "tailwindcss";
-
-/* Fuente global */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-/* Globales */
 html,
 body,
 #root {
@@ -13,41 +9,130 @@ body,
 
 body {
   margin: 0;
-  background-color: #020617; /* slate-950 */
-  color: #e2e8f0;            /* slate-200 */
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: #f5f5f5; /* fondo claro, sin degradados */
+  color: #020617; /* casi negro */
 }
 
-/* Scrollbar bonito (opcional) */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(148, 163, 184, 0.6); /* slate-400 */
+  background-color: rgba(148, 163, 184, 0.7);
   border-radius: 9999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(148, 163, 184, 0.9);
+  background-color: rgba(100, 116, 139, 0.9);
 }
 
-/* Animación del carrusel de tecnologías */
-@keyframes marquee {
+/* Cursor glow: naranja + un toque azul */
+.cursor-glow {
+  box-shadow:
+    0 0 0 2px rgba(249, 115, 22, 0.45),
+    0 0 0 6px rgba(56, 189, 248, 0.18);
+}
+
+/* Hero card flotando */
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0) rotate3d(0, 1, 0, 0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate3d(0, 1, 0, 3deg);
+  }
+}
+
+.float-card {
+  animation: floatCard 7s ease-in-out infinite;
+}
+
+/* CTA con halo naranja */
+@keyframes ctaPulse {
   0% {
-    transform: translateX(0%);
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.cta-pulse {
+  position: relative;
+}
+
+.cta-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid rgba(249, 115, 22, 0.5); /* naranja sólido */
+  opacity: 0;
+  animation: ctaPulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Carrusel tecnologías (sin degradados) */
+@keyframes marqueeRow {
+  0% {
+    transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
   }
 }
 
-/* Clase para usar en el carrusel (en lugar de definirla en tailwind.config) */
-.animate-marquee {
-  animation: marquee 35s linear infinite;
+.marquee-container:hover .marquee-row {
+  animation-play-state: paused;
+}
+
+.marquee-row {
+  animation: marqueeRow 38s linear infinite;
+}
+
+.marquee-row.reverse {
+  animation-direction: reverse;
+}
+
+/* Línea naranja en títulos de sección */
+@keyframes sectionAccent {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.section-heading {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.section-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 18px;
+  height: 2px;
+  border-radius: 9999px;
+  background-color: #f97316; /* naranja fuerte */
+  transform-origin: left;
+  animation: sectionAccent 0.9s ease-out forwards;
 }
