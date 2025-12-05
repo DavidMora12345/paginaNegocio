@@ -262,11 +262,10 @@ function App() {
       "transform 0.11s ease-out, width 0.11s ease-out, height 0.11s ease-out, background-color 0.11s ease-out, border-color 0.11s ease-out",
   };
 
+  // Secciones con animación
   const heroReveal = useScrollReveal();
-  const aboutReveal = useScrollReveal();
-  const servicesReveal = useScrollReveal();
-  const techReveal = useScrollReveal();
-  const projectsReveal = useScrollReveal();
+  const softwareReveal = useScrollReveal();
+  const scrumReveal = useScrollReveal();
   const contactReveal = useScrollReveal();
 
   const onInteractiveEnter = () => setCursorVariant("link");
@@ -287,10 +286,6 @@ function App() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-
-  const half = Math.ceil(TECHNOLOGIES.length / 2);
-  const rowA = TECHNOLOGIES.slice(0, half);
-  const rowB = TECHNOLOGIES.slice(half);
 
   return (
     <div className="relative min-h-screen bg-transparent text-slate-900 overflow-hidden font-sans cursor-none">
@@ -339,24 +334,22 @@ function App() {
             <nav className="flex items-center justify-between px-4 py-3 md:px-6">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-xl bg-orange-500 flex items-center justify-center text-white font-semibold">
-                  DM
+                  CN
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-sm font-semibold text-slate-900">
-                    David Mora
+                    Código Naranja
                   </span>
                   <span className="text-xs text-slate-500">
-                    Consultor en desarrollo de software
+                    Ingeniería &amp; Consultoría de Software
                   </span>
                 </div>
               </div>
 
               <div className="hidden md:flex items-center gap-6 text-xs font-medium">
                 {[
-                  { href: "#about", label: "Sobre mí" },
-                  { href: "#services", label: "Servicios" },
-                  { href: "#stack", label: "Tecnologías" },
-                  { href: "#projects", label: "Proyectos" },
+                  { href: "#software", label: "Software a medida" },
+                  { href: "#scrum", label: "Consultoría Scrum" },
                   { href: "#contact", label: "Contacto" },
                 ].map((item) => (
                   <a
@@ -379,7 +372,7 @@ function App() {
                 onMouseLeave={onInteractiveLeave}
                 className="hidden md:inline-flex text-xs px-4 py-2 rounded-full bg-orange-500 text-white font-semibold shadow-md hover:bg-orange-600 transition-colors"
               >
-                Agenda una llamada
+                Ver promociones y planes
               </a>
             </nav>
           </div>
@@ -392,309 +385,185 @@ function App() {
               ref={heroReveal.ref}
               className={`${revealClasses(
                 heroReveal.isVisible
-              )} grid grid-cols-1 md:grid-cols-[1.4fr_1fr] items-center gap-10`}
+              )} max-w-3xl space-y-6`}
             >
-              <div className="space-y-6">
-                <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.24em] text-orange-700 bg-orange-50 border border-orange-200 px-4 py-1 rounded-full">
+              <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.24em] text-orange-700 bg-orange-50 border border-orange-200 px-4 py-1 rounded-full">
+                <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                SOFTWARE A MEDIDA · SCRUM · PROMOCIONES
+              </p>
+              <h1 className="text-3xl md:text-5xl font-semibold leading-tight text-slate-900">
+                Software a la medida y consultoría Scrum con enfoque de
+                ingeniería.
+              </h1>
+              <p className="text-sm md:text-base text-slate-700 max-w-xl">
+                Servicios para digitalizar negocios, modernizar sistemas y
+                ordenar proyectos de desarrollo, con precios competitivos y
+                prácticas de ingeniería modernas: arquitectura limpia, pruebas,
+                automatización y despliegues estables.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href="#software"
+                  onClick={(e) => handleNavClick(e, "#software")}
+                  onMouseEnter={onInteractiveEnter}
+                  onMouseLeave={onInteractiveLeave}
+                  className="cta-pulse inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-orange-600 transition-colors"
+                >
+                  Ver software a medida
+                  <span className="text-base">↗</span>
+                </a>
+                <a
+                  href="#scrum"
+                  onClick={(e) => handleNavClick(e, "#scrum")}
+                  onMouseEnter={onInteractiveEnter}
+                  onMouseLeave={onInteractiveLeave}
+                  className="inline-flex items-center gap-2 text-sm text-slate-700 hover:text-sky-700 transition-colors"
+                >
+                  Ver consultoría Scrum
+                </a>
+              </div>
+
+              <div className="flex flex-wrap gap-3 text-[11px] text-slate-700">
+                <span className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-3 py-1 shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Promociones activas y planes escalables
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                  Trabajo de ingeniería con buenas prácticas
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                  CONSULTORÍA · FRONTEND · WEB
-                </p>
-                <h1 className="text-3xl md:text-5xl font-semibold leading-tight text-slate-900">
-                  Diseño experiencias web{" "}
-                  <span className="text-orange-600">claras y rápidas</span>{" "}
-                  que conectan negocio y tecnología.
-                </h1>
-                <p className="text-sm md:text-base text-slate-700 max-w-xl">
-                  Te ayudo a pasar de idea a producto: landings, interfaces y
-                  paneles internos. Tomo decisiones técnicas pensando en
-                  rendimiento, claridad y en que tú puedas entender qué se está
-                  haciendo.
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <a
-                    href="#contact"
-                    onClick={(e) => handleNavClick(e, "#contact")}
-                    onMouseEnter={onInteractiveEnter}
-                    onMouseLeave={onInteractiveLeave}
-                    className="cta-pulse inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-orange-600 transition-colors"
-                  >
-                    Hablemos de tu proyecto
-                    <span className="text-base">↗</span>
-                  </a>
-                  <a
-                    href="#projects"
-                    onClick={(e) => handleNavClick(e, "#projects")}
-                    onMouseEnter={onInteractiveEnter}
-                    onMouseLeave={onInteractiveLeave}
-                    className="inline-flex items-center gap-2 text-sm text-slate-700 hover:text-sky-700 transition-colors"
-                  >
-                    Ver proyectos y soluciones
-                    <span className="text-xs text-slate-400">● ● ●</span>
-                  </a>
-                </div>
-
-                <div className="flex flex-wrap gap-3 text-[11px] text-slate-700">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-3 py-1 shadow-sm">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Disponible para proyectos freelance
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">
-                    <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
-                    React · TypeScript · Tailwind
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex md:justify-end">
-                <div className="relative h-64 w-64 md:h-72 md:w-72 rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_60px_rgba(15,23,42,0.12)] overflow-hidden float-card">
-                  <div className="relative z-10 flex h-full flex-col justify-between p-5">
-                    <div className="flex items-center justify-between text-xs text-slate-600">
-                      <span className="px-2 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-700">
-                        Frontend Consultant
-                      </span>
-                      <span className="text-slate-400">Cuenca · EC</span>
-                    </div>
-                    <div className="space-y-3 text-xs text-slate-800">
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-                        Stack principal
-                      </p>
-                      <div className="grid grid-cols-3 gap-2 text-[11px]">
-                        <div className="rounded-xl bg-slate-50 border border-slate-200 px-2 py-2 shadow-sm">
-                          <p className="font-medium text-slate-900">React</p>
-                          <p className="text-[10px] text-slate-500">
-                            SPAs, dashboards y landings.
-                          </p>
-                        </div>
-                        <div className="rounded-xl bg-slate-50 border border-slate-200 px-2 py-2 shadow-sm">
-                          <p className="font-medium text-slate-900">
-                            TypeScript
-                          </p>
-                          <p className="text-[10px] text-slate-500">
-                            Código seguro y escalable.
-                          </p>
-                        </div>
-                        <div className="rounded-xl bg-orange-50 border border-orange-200 px-2 py-2 shadow-sm">
-                          <p className="font-medium text-orange-700">
-                            Tailwind
-                          </p>
-                          <p className="text-[10px] text-slate-500">
-                            UI moderna y responsiva.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[10px] text-slate-500">
-                      <span>+ proyectos académicos y freelance</span>
-                      <span className="font-medium text-sky-700">
-                        Ingeniería de Software
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                  Precios accesibles según el tamaño del proyecto
+                </span>
               </div>
             </div>
           </section>
 
-          {/* SOBRE MÍ */}
-          <section id="about" className="mt-18 md:mt-20">
+          {/* SECCIÓN 1: SOFTWARE A LA MEDIDA */}
+          <section id="software" className="mt-20 md:mt-24">
             <div
-              ref={aboutReveal.ref}
-              className={`${revealClasses(
-                aboutReveal.isVisible
-              )} max-w-3xl rounded-3xl bg-white border border-slate-200 shadow-[0_16px_40px_rgba(15,23,42,0.08)] p-6 md:p-8`}
+              ref={softwareReveal.ref}
+              className={revealClasses(softwareReveal.isVisible)}
             >
-              <h2 className="section-heading text-xl md:text-2xl font-semibold mb-3">
-                Sobre mí
-              </h2>
-              <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                Soy David Esteban Mora Cabrera, estudiante de Ingeniería de
-                Software y desarrollador frontend. Me interesa que tu producto
-                se vea bien, funcione bien y que también entiendas por qué se
-                tomó cada decisión.
-              </p>
-              <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
-                Trabajo principalmente con JavaScript/TypeScript, React y
-                Tailwind. Me gusta mantener el frontend organizado, con
-                componentes reutilizables y una interfaz donde cada elemento
-                tiene un propósito claro.
-              </p>
-            </div>
-          </section>
-
-          {/* SERVICIOS */}
-          <section id="services" className="mt-20 md:mt-24">
-            <div
-              ref={servicesReveal.ref}
-              className={revealClasses(servicesReveal.isVisible)}
-            >
-              <h2 className="section-heading text-xl md:text-2xl font-semibold mb-6">
-                Servicios que ofrezco
-              </h2>
-              <div className="grid md:grid-cols-3 gap-5">
-                {[
-                  {
-                    title: "Landings enfocadas en negocio",
-                    desc: "Páginas de presentación para explicar bien qué haces y guiar al usuario a la siguiente acción.",
-                  },
-                  {
-                    title: "Interfaces y paneles internos",
-                    desc: "Dashboards y herramientas internas para que tu equipo vea datos y procesos sin perderse.",
-                  },
-                  {
-                    title: "Acompañamiento técnico",
-                    desc: "Revisión de frontend, definición de stack y apoyo en buenas prácticas para tu equipo.",
-                  },
-                ].map((card, index) => (
-                  <article
-                    key={card.title}
-                    className={`group relative overflow-hidden rounded-2xl border bg-white p-5 shadow-[0_14px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_18px_50px_rgba(15,23,42,0.12)] hover:-translate-y-1 transition-all ${
-                      index === 0
-                        ? "border-orange-300"
-                        : "border-slate-200"
-                    }`}
-                  >
-                    {index === 0 && (
-                      <span className="absolute top-0 left-0 h-1 w-full bg-orange-500" />
-                    )}
-                    <div className="relative z-10">
-                      <h3 className="font-semibold mb-2 text-slate-900">
-                        {card.title}
-                      </h3>
-                      <p className="text-sm text-slate-700">{card.desc}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* TECNOLOGÍAS */}
-          <section id="stack" className="mt-20 md:mt-24">
-            <div
-              ref={techReveal.ref}
-              className={revealClasses(techReveal.isVisible)}
-            >
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-                <div>
-                  <h2 className="section-heading text-xl md:text-2xl font-semibold">
-                    Tecnologías con las que me muevo cómodo.
+              <div className="flex flex-col gap-8">
+                <div className="space-y-5">
+                  <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+                    Desarrollo de software a la medida y colaboración en
+                    proyectos.
                   </h2>
-                  <p className="mt-2 text-sm md:text-base text-slate-700 max-w-xl">
-                    Lenguajes, frameworks, bases de datos y herramientas de
-                    infraestructura. Puedo integrarme al stack que ya use tu
-                    equipo o ayudarte a definir uno nuevo.
-                  </p>
-                </div>
-                <p className="text-xs text-slate-500 max-w-xs">
-                  Los logos son ilustrativos. La clave no es usar todo, sino
-                  elegir bien en qué vale la pena invertir complejidad.
-                </p>
-              </div>
 
-              <div className="marquee-container relative overflow-hidden rounded-3xl border border-slate-200 bg-white py-5 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
-                <div className="absolute inset-y-0 left-0 w-24 bg-white pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-24 bg-white pointer-events-none" />
+                  {/* MISMO ESTILO DE CARD QUE CONTACTO */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+                    <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                      Se diseñan y construyen soluciones digitales completas:
+                      páginas web, paneles internos, apps móviles, backends y
+                      APIs, siempre con arquitectura pensada para crecer y
+                      mantenerse en el tiempo.
+                    </p>
+                    <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
+                      El foco está en digitalizar negocios y procesos: pasar de
+                      hojas de cálculo y tareas manuales a sistemas claros,
+                      trazables y fáciles de usar. Los precios son competitivos
+                      y se ajustan al tamaño del proyecto, sin sacrificar
+                      calidad de ingeniería.
+                    </p>
 
-                <div className="space-y-4">
-                  {/* Fila 1: acento naranja */}
-                  <div className="marquee-row flex gap-6 min-w-max">
-                    {[...rowA, ...rowA].map((tech, index) => (
-                      <div
-                        key={`${tech.name}-a-${index}`}
-                        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-orange-50 border border-orange-200 min-w-max hover:border-orange-500 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-full bg-white border border-orange-200 flex items-center justify-center overflow-hidden">
-                          <img
-                            src={tech.logo}
-                            alt={tech.name}
-                            className="h-6 w-6 object-contain"
-                          />
-                        </div>
-                        <span className="text-sm text-slate-900">
-                          {tech.name}
-                        </span>
-                      </div>
-                    ))}
+                    <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside">
+                      <li>
+                        Desarrollo a medida en la tecnología que ya usas.
+                      </li>
+                      <li>
+                        Integración con sistemas existentes y bases de datos.
+                      </li>
+                      <li>
+                        Diseño pensando en rendimiento, seguridad y
+                        mantenibilidad.
+                      </li>
+                      <li>
+                        Pruebas, documentación básica y código versionado.
+                      </li>
+                    </ul>
                   </div>
 
-                  {/* Fila 2: acento azul */}
-                  <div className="marquee-row reverse flex gap-6 min-w-max">
-                    {[...rowB, ...rowB].map((tech, index) => (
-                      <div
-                        key={`${tech.name}-b-${index}`}
-                        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-sky-50 border border-sky-200 min-w-max hover:border-sky-500 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-full bg-white border border-sky-200 flex items-center justify-center overflow-hidden">
-                          <img
-                            src={tech.logo}
-                            alt={tech.name}
-                            className="h-6 w-6 object-contain"
-                          />
-                        </div>
-                        <span className="text-sm text-slate-900">
-                          {tech.name}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="flex flex-wrap gap-2 text-[11px]">
+                    <span className="px-3 py-1 rounded-full border border-orange-200 bg-orange-50 text-orange-700">
+                      Promociones por paquete (web + backend + soporte).
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-700">
+                      Precios accesibles según alcance y complejidad.
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-sky-200 bg-sky-50 text-sky-700">
+                      Trabajo de ingeniería garantizado y con buenas prácticas.
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* PROYECTOS */}
-          <section id="projects" className="mt-20 md:mt-24">
+          {/* SECCIÓN 2: CONSULTORÍA SCRUM */}
+          <section id="scrum" className="mt-20 md:mt-24">
             <div
-              ref={projectsReveal.ref}
-              className={revealClasses(projectsReveal.isVisible)}
+              ref={scrumReveal.ref}
+              className={revealClasses(scrumReveal.isVisible)}
             >
-              <h2 className="section-heading text-xl md:text-2xl font-semibold mb-6">
-                Tipos de proyectos en los que encajo
-              </h2>
-              <div className="grid md:grid-cols-3 gap-5">
-                <article className="rounded-2xl border border-orange-300 bg-white p-4 flex flex-col justify-between shadow-[0_14px_35px_rgba(15,23,42,0.06)]">
-                  <div>
-                    <p className="text-xs text-orange-600 mb-1">
-                      Landing · React
+              <div className="flex flex-col gap-8">
+                <div className="space-y-5">
+                  <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+                    Consultoría en Scrum y agilidad para empresas.
+                  </h2>
+
+                  {/* MISMO ESTILO DE CARD QUE CONTACTO */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+                    <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                      Scrum bien aplicado ayuda a reducir el caos, priorizar lo
+                      importante y entregar valor de forma constante. La idea es
+                      que los proyectos tengan rumbo claro, plazos realistas y
+                      menos apagafuegos.
                     </p>
-                    <h3 className="font-semibold mb-2 text-slate-900">
-                      Marca personal o consultoría
-                    </h3>
-                    <p className="text-sm text-slate-700">
-                      Una landing pensada para explicar qué haces y por qué
-                      deberían trabajar contigo, sin parecer un template más.
+                    <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
+                      La consultoría se centra en aterrizar Scrum a la realidad
+                      de cada empresa: tamaño del equipo, tipo de proyecto y
+                      contexto. No se vende teoría suelta, sino acompañamiento
+                      práctico con enfoque de ingeniería de software.
                     </p>
+
+                    <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside">
+                      <li>
+                        Implementación de Scrum desde cero en equipos de
+                        desarrollo.
+                      </li>
+                      <li>
+                        Rescate de proyectos trabados o con entregas
+                        desordenadas.
+                      </li>
+                      <li>
+                        Revisión de tableros, ceremonias, métricas y definición
+                        de roles.
+                      </li>
+                      <li>
+                        Alineamiento entre negocio y equipo técnico para
+                        priorizar bien.
+                      </li>
+                    </ul>
                   </div>
-                </article>
-                <article className="rounded-2xl border border-slate-200 bg-white p-4 flex flex-col justify-between shadow-[0_14px_35px_rgba(15,23,42,0.06)]">
-                  <div>
-                    <p className="text-xs text-sky-600 mb-1">
-                      Dashboard · TS + Tailwind
-                    </p>
-                    <h3 className="font-semibold mb-2 text-slate-900">
-                      Panel interno para equipo
-                    </h3>
-                    <p className="text-sm text-slate-700">
-                      Herramientas internas para que tu equipo pueda ver
-                      métricas, estados y procesos de manera clara.
-                    </p>
+
+                  <div className="flex flex-wrap gap-2 text-[11px]">
+                    <span className="px-3 py-1 rounded-full border border-orange-200 bg-orange-50 text-orange-700">
+                      Diagnóstico inicial de madurez ágil incluido en
+                      promociones.
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-slate-200 bg-white text-slate-700">
+                      Planes por equipo, por proyecto o por sesiones.
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-sky-200 bg-sky-50 text-sky-700">
+                      Aplicación de Scrum con enfoque de ingeniería, no solo
+                      teoría.
+                    </span>
                   </div>
-                </article>
-                <article className="rounded-2xl border border-slate-200 bg-white p-4 flex flex-col justify-between shadow-[0_14px_35px_rgba(15,23,42,0.06)]">
-                  <div>
-                    <p className="text-xs text-orange-500 mb-1">
-                      Prototipo · UI/UX
-                    </p>
-                    <h3 className="font-semibold mb-2 text-slate-900">
-                      MVP para validar ideas
-                    </h3>
-                    <p className="text-sm text-slate-700">
-                      Prototipos navegables para testear con usuarios, clientes
-                      o inversionistas antes de invertir en desarrollo completo.
-                    </p>
-                  </div>
-                </article>
+                </div>
               </div>
             </div>
           </section>
@@ -706,32 +575,62 @@ function App() {
               className={revealClasses(contactReveal.isVisible)}
             >
               <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
-                <h2 className="section-heading text-xl md:text-2xl font-semibold mb-3 text-slate-900">
-                  ¿Hablamos de tu próximo proyecto?
-                </h2>
-                <p className="text-sm md:text-base text-slate-700 mb-5 max-w-xl">
-                  Cuéntame en pocas líneas qué necesitas y puedo devolverte una
-                  propuesta sincera: alcance, tiempos y stack recomendado.
-                </p>
-                <div className="flex flex-wrap items-center gap-4">
-                  <a
-                    href="mailto:tu-correo@ejemplo.com?subject=Proyecto%20de%20desarrollo%20web"
-                    onMouseEnter={onInteractiveEnter}
-                    onMouseLeave={onInteractiveLeave}
-                    className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:bg-orange-600 hover:shadow-xl transition-all"
-                  >
-                    Escribir un correo
-                  </a>
-                  <p className="text-xs text-slate-500">
-                    También podemos coordinar una llamada rápida por Google
-                    Meet o Zoom.
-                  </p>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                  <div className="md:flex-1">
+                    <h2 className="text-xl md:text-2xl font-semibold mb-3 text-slate-900">
+                      Solicita una propuesta y revisa las promociones vigentes.
+                    </h2>
+                    <p className="text-sm md:text-base text-slate-700 mb-5 max-w-xl">
+                      Se puede solicitar una propuesta para software a medida,
+                      colaboración en proyectos o consultoría Scrum. La respuesta
+                      incluye alcance sugerido, tiempos aproximados, tecnología
+                      recomendada y opciones de presupuesto con promociones
+                      aplicables.
+                    </p>
+                    <div className="flex
+ flex-wrap items-center gap-4">
+                      <a
+                        href="mailto:tu-correo@ejemplo.com?subject=Consultor%C3%ADa%20en%20desarrollo%20de%20software%20y%20Scrum"
+                        onMouseEnter={onInteractiveEnter}
+                        onMouseLeave={onInteractiveLeave}
+                        className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:bg-orange-600 hover:shadow-xl transition-all"
+                      >
+                        Pedir catálogo de promociones
+                      </a>
+                      <p className="text-xs text-slate-500">
+                        También se puede coordinar una llamada rápida por Google
+                        Meet o Zoom para aclarar dudas y elegir el plan adecuado.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* QR WhatsApp */}
+                  <div className="md:w-60 w-full">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 flex flex-col items-center text-center gap-3">
+                      <p className="text-xs font-semibold text-slate-800">
+                        ¿Prefieres escribir por WhatsApp?
+                      </p>
+                      <div className="bg-white rounded-2xl border border-slate-200 p-3">
+                        <img
+                          src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://wa.me/593999999999"
+                          alt="Código QR de contacto por WhatsApp"
+                          className="h-40 w-40 object-contain"
+                        />
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Escanea el código y envía un mensaje indicando si buscas
+                        software a medida o consultoría Scrum, y se comparte la
+                        información de promociones disponibles.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <p className="mt-6 text-[11px] text-slate-500">
-                © {new Date().getFullYear()} David Mora. Construido con React +
-                TypeScript + Tailwind CSS.
+                © {new Date().getFullYear()} Código Naranja Ingeniería &amp;
+                Consultoría. Trabajo de ingeniería de software con buenas
+                prácticas y servicios orientados a resultados.
               </p>
             </div>
           </section>
