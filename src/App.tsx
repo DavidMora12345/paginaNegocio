@@ -9,7 +9,6 @@ type Technology = {
 };
 
 const TECHNOLOGIES: Technology[] = [
-  // Lenguajes
   {
     name: "JavaScript",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
@@ -62,8 +61,6 @@ const TECHNOLOGIES: Technology[] = [
     name: "Dart",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
   },
-
-  // Frontend / UI
   {
     name: "React",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
@@ -108,8 +105,6 @@ const TECHNOLOGIES: Technology[] = [
     name: "jQuery",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg",
   },
-
-  // Mobile / multiplataforma
   {
     name: "Flutter",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
@@ -122,8 +117,6 @@ const TECHNOLOGIES: Technology[] = [
     name: "Electron",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg",
   },
-
-  // Backend / runtimes / APIs
   {
     name: "Node.js",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
@@ -160,8 +153,6 @@ const TECHNOLOGIES: Technology[] = [
     name: "GraphQL",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
   },
-
-  // Bases de datos / búsqueda
   {
     name: "PostgreSQL",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
@@ -186,8 +177,6 @@ const TECHNOLOGIES: Technology[] = [
     name: "Elasticsearch",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
   },
-
-  // DevOps / Cloud / Infra
   {
     name: "Docker",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
@@ -201,6 +190,8 @@ const TECHNOLOGIES: Technology[] = [
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
   },
 ];
+
+const VISIBLE_TECH_COUNT = 9;
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -231,10 +222,10 @@ function useScrollReveal() {
 }
 
 function App() {
-  // Cursor + parallax con colores planos
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState<CursorVariant>("default");
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const [techIndex, setTechIndex] = useState(0);
 
   useEffect(() => {
     const handleMove = (event: MouseEvent) => {
@@ -250,6 +241,14 @@ function App() {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setTechIndex((prev) => (prev + 3) % TECHNOLOGIES.length);
+    }, 2400);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   const cursorSize = cursorVariant === "default" ? 20 : 34;
 
   const cursorStyle: CSSProperties = {
@@ -262,7 +261,6 @@ function App() {
       "transform 0.11s ease-out, width 0.11s ease-out, height 0.11s ease-out, background-color 0.11s ease-out, border-color 0.11s ease-out",
   };
 
-  // Secciones con animación
   const heroReveal = useScrollReveal();
   const softwareReveal = useScrollReveal();
   const scrumReveal = useScrollReveal();
@@ -287,9 +285,20 @@ function App() {
     }
   };
 
+  const scrumImage =
+    "https://upload.wikimedia.org/wikipedia/commons/5/58/Scrum_alliance_logo.png";
+
+  const techCarouselKeyframes = `
+    @keyframes techSwap {
+      0% { opacity: 0; transform: translateY(8px) scale(0.98); }
+      15% { opacity: 1; transform: translateY(0) scale(1); }
+      85% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-6px) scale(0.98); }
+    }
+  `;
+
   return (
     <div className="relative min-h-screen bg-transparent text-slate-900 overflow-hidden font-sans cursor-none">
-      {/* Fondos parallax SIN degradados: solo círculos de color liso */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute -top-40 -left-32 h-80 w-80 rounded-full bg-orange-200 blur-3xl"
@@ -317,7 +326,6 @@ function App() {
         />
       </div>
 
-      {/* Cursor custom */}
       <div
         className={`pointer-events-none fixed z-[9999] rounded-full border cursor-glow ${
           cursorVariant === "default"
@@ -328,7 +336,6 @@ function App() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
-        {/* Navbar */}
         <header className="sticky top-4 z-20 mb-6">
           <div className="backdrop-blur bg-white/95 border border-slate-200 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.12)]">
             <nav className="flex items-center justify-between px-4 py-3 md:px-6">
@@ -379,7 +386,6 @@ function App() {
         </header>
 
         <main className="pb-24">
-          {/* HERO */}
           <section id="hero" className="pt-4 md:pt-8">
             <div
               ref={heroReveal.ref}
@@ -441,7 +447,6 @@ function App() {
             </div>
           </section>
 
-          {/* SECCIÓN 1: SOFTWARE A LA MEDIDA */}
           <section id="software" className="mt-20 md:mt-24">
             <div
               ref={softwareReveal.ref}
@@ -454,37 +459,74 @@ function App() {
                     proyectos.
                   </h2>
 
-                  {/* MISMO ESTILO DE CARD QUE CONTACTO */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
-                    <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                      Se diseñan y construyen soluciones digitales completas:
-                      páginas web, paneles internos, apps móviles, backends y
-                      APIs, siempre con arquitectura pensada para crecer y
-                      mantenerse en el tiempo.
-                    </p>
-                    <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
-                      El foco está en digitalizar negocios y procesos: pasar de
-                      hojas de cálculo y tareas manuales a sistemas claros,
-                      trazables y fáciles de usar. Los precios son competitivos
-                      y se ajustan al tamaño del proyecto, sin sacrificar
-                      calidad de ingeniería.
-                    </p>
+                    <div className="w-full md:max-w-[90%] md:flex md:items-center md:gap-6">
+                      <div className="w-full md:max-w-[55%]">
+                        <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                          Se diseñan y construyen soluciones digitales
+                          completas: páginas web, paneles internos, apps
+                          móviles, backends y APIs, siempre con arquitectura
+                          pensada para crecer y mantenerse en el tiempo.
+                        </p>
+                        <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
+                          El foco está en digitalizar negocios y procesos:
+                          pasar de hojas de cálculo y tareas manuales a sistemas
+                          claros, trazables y fáciles de usar. Los precios son
+                          competitivos y se ajustan al tamaño del proyecto, sin
+                          sacrificar calidad de ingeniería.
+                        </p>
 
-                    <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside">
-                      <li>
-                        Desarrollo a medida en la tecnología que ya usas.
-                      </li>
-                      <li>
-                        Integración con sistemas existentes y bases de datos.
-                      </li>
-                      <li>
-                        Diseño pensando en rendimiento, seguridad y
-                        mantenibilidad.
-                      </li>
-                      <li>
-                        Pruebas, documentación básica y código versionado.
-                      </li>
-                    </ul>
+                        <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside marker:text-orange-500">
+                          <li>
+                            Desarrollo a medida en la tecnología que ya usas.
+                          </li>
+                          <li>
+                            Integración con sistemas existentes y bases de
+                            datos.
+                          </li>
+                          <li>
+                            Diseño pensando en rendimiento, seguridad y
+                            mantenibilidad.
+                          </li>
+                          <li>
+                            Pruebas, documentación básica y código versionado.
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="hidden md:block w-[3px] self-stretch bg-orange-500 rounded-full" />
+
+                      <div className="hidden md:flex flex-1 items-center justify-center">
+                        <style>{techCarouselKeyframes}</style>
+                        <div className="grid grid-cols-3 gap-3">
+                          {Array.from({ length: VISIBLE_TECH_COUNT }).map(
+                            (_, index) => {
+                              const tech =
+                                TECHNOLOGIES[
+                                  (techIndex + index) % TECHNOLOGIES.length
+                                ];
+
+                              return (
+                                <div
+                                  key={`${tech.name}-${index}`}
+                                  className="h-24 w-24 rounded-xl bg-orange-50/80 border border-orange-100 p-4 shadow-sm flex items-center justify-center"
+                                  style={{
+                                    animation: "techSwap 2.4s ease-in-out",
+                                    animationDelay: `${index * 0.08}s`,
+                                  }}
+                                >
+                                  <img
+                                    src={tech.logo}
+                                    alt={tech.name}
+                                    className="h-14 w-14 object-contain"
+                                  />
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 text-[11px]">
@@ -503,7 +545,6 @@ function App() {
             </div>
           </section>
 
-          {/* SECCIÓN 2: CONSULTORÍA SCRUM */}
           <section id="scrum" className="mt-20 md:mt-24">
             <div
               ref={scrumReveal.ref}
@@ -515,39 +556,55 @@ function App() {
                     Consultoría en Scrum y agilidad para empresas.
                   </h2>
 
-                  {/* MISMO ESTILO DE CARD QUE CONTACTO */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
-                    <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                      Scrum bien aplicado ayuda a reducir el caos, priorizar lo
-                      importante y entregar valor de forma constante. La idea es
-                      que los proyectos tengan rumbo claro, plazos realistas y
-                      menos apagafuegos.
-                    </p>
-                    <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
-                      La consultoría se centra en aterrizar Scrum a la realidad
-                      de cada empresa: tamaño del equipo, tipo de proyecto y
-                      contexto. No se vende teoría suelta, sino acompañamiento
-                      práctico con enfoque de ingeniería de software.
-                    </p>
+                    <div className="w-full md:max-w-[90%] md:flex md:items-center md:gap-6">
+                      <div className="w-full md:max-w-[55%]">
+                        <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                          Scrum bien aplicado ayuda a reducir el caos,
+                          priorizar lo importante y entregar valor de forma
+                          constante. La idea es que los proyectos tengan rumbo
+                          claro, plazos realistas y menos apagafuegos.
+                        </p>
+                        <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
+                          La consultoría se centra en aterrizar Scrum a la
+                          realidad de cada empresa: tamaño del equipo, tipo de
+                          proyecto y contexto. No se vende teoría suelta, sino
+                          acompañamiento práctico con enfoque de ingeniería de
+                          software.
+                        </p>
 
-                    <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside">
-                      <li>
-                        Implementación de Scrum desde cero en equipos de
-                        desarrollo.
-                      </li>
-                      <li>
-                        Rescate de proyectos trabados o con entregas
-                        desordenadas.
-                      </li>
-                      <li>
-                        Revisión de tableros, ceremonias, métricas y definición
-                        de roles.
-                      </li>
-                      <li>
-                        Alineamiento entre negocio y equipo técnico para
-                        priorizar bien.
-                      </li>
-                    </ul>
+                        <ul className="mt-4 text-sm md:text-base text-slate-700 space-y-2 list-disc list-inside marker:text-orange-500">
+                          <li>
+                            Implementación de Scrum desde cero en equipos de
+                            desarrollo.
+                          </li>
+                          <li>
+                            Rescate de proyectos trabados o con entregas
+                            desordenadas.
+                          </li>
+                          <li>
+                            Revisión de tableros, ceremonias, métricas y
+                            definición de roles.
+                          </li>
+                          <li>
+                            Alineamiento entre negocio y equipo técnico para
+                            priorizar bien.
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="hidden md:block w-[3px] self-stretch bg-orange-500 rounded-full" />
+
+                      <div className="hidden md:flex flex-1 items-center justify-center">
+                        <div className="rounded-2xl bg-orange-50/80 border border-orange-100 p-6 shadow-sm flex items-center justify-center">
+                          <img
+                            src={scrumImage}
+                            alt="Scrum"
+                            className="max-h-32 w-auto object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 text-[11px]">
@@ -568,7 +625,6 @@ function App() {
             </div>
           </section>
 
-          {/* CONTACTO */}
           <section id="contact" className="mt-20 md:mt-24">
             <div
               ref={contactReveal.ref}
@@ -582,13 +638,12 @@ function App() {
                     </h2>
                     <p className="text-sm md:text-base text-slate-700 mb-5 max-w-xl">
                       Se puede solicitar una propuesta para software a medida,
-                      colaboración en proyectos o consultoría Scrum. La respuesta
-                      incluye alcance sugerido, tiempos aproximados, tecnología
-                      recomendada y opciones de presupuesto con promociones
-                      aplicables.
+                      colaboración en proyectos o consultoría Scrum. La
+                      respuesta incluye alcance sugerido, tiempos aproximados,
+                      tecnología recomendada y opciones de presupuesto con
+                      promociones aplicables.
                     </p>
-                    <div className="flex
- flex-wrap items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-4">
                       <a
                         href="mailto:tu-correo@ejemplo.com?subject=Consultor%C3%ADa%20en%20desarrollo%20de%20software%20y%20Scrum"
                         onMouseEnter={onInteractiveEnter}
@@ -598,13 +653,13 @@ function App() {
                         Pedir catálogo de promociones
                       </a>
                       <p className="text-xs text-slate-500">
-                        También se puede coordinar una llamada rápida por Google
-                        Meet o Zoom para aclarar dudas y elegir el plan adecuado.
+                        También se puede coordinar una llamada rápida por
+                        Google Meet o Zoom para aclarar dudas y elegir el plan
+                        adecuado.
                       </p>
                     </div>
                   </div>
 
-                  {/* QR WhatsApp */}
                   <div className="md:w-60 w-full">
                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 flex flex-col items-center text-center gap-3">
                       <p className="text-xs font-semibold text-slate-800">
@@ -618,9 +673,9 @@ function App() {
                         />
                       </div>
                       <p className="text-[11px] text-slate-500">
-                        Escanea el código y envía un mensaje indicando si buscas
-                        software a medida o consultoría Scrum, y se comparte la
-                        información de promociones disponibles.
+                        Escanea el código y envía un mensaje indicando si
+                        buscas software a medida o consultoría Scrum, y se
+                        comparte la información de promociones disponibles.
                       </p>
                     </div>
                   </div>
