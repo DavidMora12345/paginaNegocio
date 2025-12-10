@@ -193,6 +193,10 @@ const TECHNOLOGIES: Technology[] = [
 
 const VISIBLE_TECH_COUNT = 9;
 
+// Imagen de Scrum / Agile
+const scrumImage =
+  "https://bambu-mobile.com/wp-content/uploads/2025/05/scrum-logo.png";
+
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -285,9 +289,6 @@ function App() {
     }
   };
 
-  const scrumImage =
-    "https://upload.wikimedia.org/wikipedia/commons/5/58/Scrum_alliance_logo.png";
-
   const techCarouselKeyframes = `
     @keyframes techSwap {
       0% { opacity: 0; transform: translateY(8px) scale(0.98); }
@@ -299,6 +300,7 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-transparent text-slate-900 overflow-hidden font-sans cursor-none">
+      {/* Fondo con blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute -top-40 -left-32 h-80 w-80 rounded-full bg-orange-200 blur-3xl"
@@ -326,6 +328,7 @@ function App() {
         />
       </div>
 
+      {/* Cursor custom */}
       <div
         className={`pointer-events-none fixed z-[9999] rounded-full border cursor-glow ${
           cursorVariant === "default"
@@ -336,19 +339,21 @@ function App() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
+        {/* HEADER */}
         <header className="sticky top-4 z-20 mb-6">
           <div className="backdrop-blur bg-white/95 border border-slate-200 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.12)]">
             <nav className="flex items-center justify-between px-4 py-3 md:px-6">
+              {/* Marca J&D */}
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-xl bg-orange-500 flex items-center justify-center text-white font-semibold">
-                  CN
+                  JD
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-sm font-semibold text-slate-900">
-                    Código Naranja
+                    J&amp;D Ingeniería y Consultoría
                   </span>
                   <span className="text-xs text-slate-500">
-                    Ingeniería &amp; Consultoría de Software
+                    Desarrollo de software &amp; Scrum
                   </span>
                 </div>
               </div>
@@ -386,6 +391,7 @@ function App() {
         </header>
 
         <main className="pb-24">
+          {/* HERO */}
           <section id="hero" className="pt-4 md:pt-8">
             <div
               ref={heroReveal.ref}
@@ -447,6 +453,7 @@ function App() {
             </div>
           </section>
 
+          {/* SOFTWARE */}
           <section id="software" className="mt-20 md:mt-24">
             <div
               ref={softwareReveal.ref}
@@ -545,6 +552,7 @@ function App() {
             </div>
           </section>
 
+          {/* SCRUM */}
           <section id="scrum" className="mt-20 md:mt-24">
             <div
               ref={scrumReveal.ref}
@@ -595,12 +603,13 @@ function App() {
 
                       <div className="hidden md:block w-[3px] self-stretch bg-orange-500 rounded-full" />
 
-                      <div className="hidden md:flex flex-1 items-center justify-center">
-                        <div className="rounded-2xl bg-orange-50/80 border border-orange-100 p-6 shadow-sm flex items-center justify-center">
+                      {/* IMAGEN DE SCRUM / AGILE BIEN VISIBLE */}
+                      <div className="mt-6 md:mt-0 flex-1 flex items-center justify-center">
+                        <div className="w-full max-w-xs md:max-w-sm h-40 md:h-52 rounded-2xl bg-white border border-slate-200 p-4 md:p-6 shadow-[0_18px_40px_rgba(15,23,42,0.12)] flex items-center justify-center">
                           <img
                             src={scrumImage}
-                            alt="Scrum"
-                            className="max-h-32 w-auto object-contain"
+                            alt="Scrum / Agile"
+                            className="w-full h-full object-contain"
                           />
                         </div>
                       </div>
@@ -625,6 +634,7 @@ function App() {
             </div>
           </section>
 
+          {/* CONTACTO */}
           <section id="contact" className="mt-20 md:mt-24">
             <div
               ref={contactReveal.ref}
@@ -683,9 +693,9 @@ function App() {
               </div>
 
               <p className="mt-6 text-[11px] text-slate-500">
-                © {new Date().getFullYear()} Código Naranja Ingeniería &amp;
-                Consultoría. Trabajo de ingeniería de software con buenas
-                prácticas y servicios orientados a resultados.
+                © {new Date().getFullYear()} J&amp;D Ingeniería y Consultoría.
+                Trabajo de ingeniería de software con buenas prácticas y
+                servicios orientados a resultados.
               </p>
             </div>
           </section>
