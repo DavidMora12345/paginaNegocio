@@ -60,6 +60,10 @@ const WHATSAPP_NUMBER_E164 = "593979395224";
 const WHATSAPP_NUMBER_DISPLAY = "+593 0979395224";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER_E164}`;
 
+const WHATSAPP_NUMBER2_E164 = "593969050140";
+const WHATSAPP_NUMBER2_DISPLAY = "+593 0969050140";
+const WHATSAPP_LINK2 = `https://wa.me/${WHATSAPP_NUMBER2_E164}`;
+
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -164,12 +168,12 @@ function App() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const softwareBenefits = useMemo(
+  const liaBenefits = useMemo(
     () => [
-      { title: "Desarrollo personalizado:", text: "Soluciones sobre las tecnologías que tu empresa ya utiliza." },
-      { title: "Integración total:", text: "Conectamos nuevas herramientas con tus sistemas y bases de datos actuales." },
-      { title: "Ingeniería de calidad:", text: "Diseño orientado a rendimiento, seguridad y mantenibilidad." },
-      { title: "Garantía técnica:", text: "Documentación funcional + pruebas para entregas estables." },
+      { title: "Responde al instante:", text: "atiende a tus clientes por WhatsApp aunque tú estés ocupado." },
+      { title: "Hace las preguntas correctas:", text: "entiende qué necesita la persona sin marearla." },
+      { title: "No se le va nada:", text: "va anotando datos importantes y deja todo ordenado." },
+      { title: "Agenda por ti:", text: "si quieren una cita, la deja lista y tú solo confirmas." },
     ],
     []
   );
@@ -179,24 +183,24 @@ function App() {
     return [...base, ...base];
   }, []);
 
-  const openWhatsAppWithLead = () => {
+  const openWhatsAppWithLead = (targetLink: string) => {
     const text = [
-      "Hola 👋, quiero una propuesta.",
+      "Hola 👋, quiero conocer a LIA (agente recepcionista).",
       leadName ? `Nombre: ${leadName}` : null,
       leadEmail ? `Email: ${leadEmail}` : null,
       leadMsg ? `Mensaje: ${leadMsg}` : null,
-      "Servicio: Software a medida",
+      "Interés: LIA para mi negocio",
     ]
       .filter(Boolean)
       .join("\n");
 
-    const url = `${WHATSAPP_LINK}?text=${encodeURIComponent(text)}`;
+    const url = `${targetLink}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const onSubmitLead = (e: React.FormEvent) => {
     e.preventDefault();
-    openWhatsAppWithLead();
+    openWhatsAppWithLead(WHATSAPP_LINK);
   };
 
   return (
@@ -260,13 +264,13 @@ function App() {
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-sm font-semibold text-[var(--navy)]">J&amp;D Ingeniería y Consultoría</span>
-                  <span className="text-xs text-slate-600">Desarrollo de software</span>
+                  <span className="text-xs text-slate-600">Agentes IA</span>
                 </div>
               </div>
 
               <div className="hidden md:flex items-center gap-6 text-xs font-medium">
                 {[
-                  { href: "#software", label: "Software a medida" },
+                  { href: "#software", label: "Agente LIA" },
                   { href: "#contact", label: "Contacto" },
                 ].map((item) => (
                   <a
@@ -289,7 +293,7 @@ function App() {
                 onMouseLeave={onInteractiveLeave}
                 className="hidden md:inline-flex text-xs px-4 py-2 rounded-full text-white font-semibold shadow-md transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)]"
               >
-                Ver planes y promociones
+                Ver cómo tener a LIA
               </a>
             </nav>
           </div>
@@ -304,21 +308,22 @@ function App() {
               <div className="max-w-3xl space-y-6">
                 <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.24em] text-white bg-[var(--navy)] px-4 py-1 rounded-full">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                  SOFTWARE A MEDIDA · PROMOCIONES
+                  AGENTE IA · LIA RECEPCIONISTA
                 </p>
 
                 <h1 className="text-4xl md:text-6xl font-semibold leading-[1.05] text-[var(--navy)]">
-                  ¡Lleva tu negocio al siguiente nivel{" "}
-                  <span className="text-[var(--orange)]">con software que sí funciona</span>!
+                  Atiende a tus clientes{" "}
+                  <span className="text-[var(--orange)]">por WhatsApp</span> con LIA,{" "}
+                  <span className="text-[var(--orange)]">tu recepcionista</span>.
                 </h1>
 
                 <div className="space-y-3 max-w-xl">
                   <p className="text-base md:text-lg text-slate-700">
-                    ¿Proyectos estancados? ¿Sistemas lentos? Te ayudamos a ordenar, modernizar y digitalizar tu empresa
-                    con prácticas de ingeniería que se notan en producción.
+                    LIA contesta rápido, pregunta lo necesario, toma los datos y deja todo listo para que tú solo
+                    cierres la venta o confirmes una cita.
                   </p>
                   <p className="text-sm md:text-base text-slate-700 font-medium">
-                    Calidad, precios justos y entregas sin sorpresas.
+                    Para el cliente se siente como hablar con una persona: simple, claro y directo.
                   </p>
                 </div>
 
@@ -330,7 +335,7 @@ function App() {
                     onMouseLeave={onInteractiveLeave}
                     className="inline-flex items-center justify-center gap-2 rounded-full text-white shadow-lg transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)] px-6 py-3 text-sm font-semibold"
                   >
-                    Pedir propuesta ahora <span className="text-base">↗</span>
+                    Pedir info de LIA <span className="text-base">↗</span>
                   </a>
 
                   <a
@@ -340,22 +345,22 @@ function App() {
                     onMouseLeave={onInteractiveLeave}
                     className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-6 py-3 text-sm font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                   >
-                    Ver software a medida
+                    Ver cómo trabaja LIA
                   </a>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-1 text-[11px]">
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                    Diagnóstico inicial incluido
+                    Responde 24/7
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--navy)]" />
-                    Entregas con buenas prácticas
+                    Deja todo ordenado
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                    Planes escalables
+                    Agenda y confirma citas
                   </span>
                 </div>
               </div>
@@ -378,11 +383,11 @@ function App() {
                     <div className="flex items-end justify-between gap-6 flex-wrap">
                       <div>
                         <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">
-                          Software a medida que te ahorra tiempo y errores.
+                          LIA, el agente recepcionista que no se cansa.
                         </h2>
                         <p className="mt-2 text-sm md:text-base text-slate-700 max-w-2xl">
-                          Construimos soluciones que escalan: web, apps, paneles internos y backends. Todo con enfoque de
-                          mantenimiento a largo plazo.
+                          Cuando alguien te escribe, LIA le responde al momento, entiende lo que busca y guía la conversación.
+                          Si el cliente ya habló antes, LIA reconoce el contexto y sigue sin volver a preguntar lo mismo.
                         </p>
                       </div>
 
@@ -393,7 +398,7 @@ function App() {
                         onMouseLeave={onInteractiveLeave}
                         className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-4 py-2 text-xs font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                       >
-                        Cotizar paquete (web + backend) ↗
+                        Quiero LIA para mi negocio ↗
                       </a>
                     </div>
 
@@ -402,12 +407,13 @@ function App() {
                         <div className="grid md:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                              Transformación operativa real: convertimos procesos manuales y hojas de cálculo en sistemas
-                              automatizados, trazables y fáciles de usar.
+                              En simple: LIA es como tu primera línea de atención. Contesta, pregunta, registra y organiza.
+                              Y si la conversación ya necesita a una persona, te la pasa con todo listo para que tú solo entres
+                              a rematar.
                             </p>
 
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {softwareBenefits.map((b) => (
+                              {liaBenefits.map((b) => (
                                 <CheckItem key={b.title} title={b.title} text={b.text} />
                               ))}
                             </div>
@@ -415,8 +421,8 @@ function App() {
 
                           <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6 overflow-hidden">
                             <div className="flex items-center justify-between">
-                              <p className="text-sm font-semibold text-[var(--navy)]">Stack / Tecnologías</p>
-                              <p className="text-xs text-slate-500">hover + carrusel</p>
+                              <p className="text-sm font-semibold text-[var(--navy)]">Se conecta con tus herramientas</p>
+                              <p className="text-xs text-slate-500">fluido y sin fricción</p>
                             </div>
 
                             <div className="relative mt-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-white">
@@ -432,16 +438,16 @@ function App() {
 
                             <div className="mt-4 grid grid-cols-2 gap-3 text-[11px] text-slate-700">
                               <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Entrega</span>: por hitos claros
+                                <span className="font-semibold text-[var(--navy)]">Atención</span>: rápida y amable
                               </div>
                               <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Calidad</span>: pruebas + versionado
+                                <span className="font-semibold text-[var(--navy)]">Orden</span>: datos bien guardados
                               </div>
                               <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Seguridad</span>: buenas prácticas
+                                <span className="font-semibold text-[var(--navy)]">Citas</span>: agenda sin enredos
                               </div>
                               <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Soporte</span>: escalable por plan
+                                <span className="font-semibold text-[var(--navy)]">Acompañamiento</span>: soporte por plan
                               </div>
                             </div>
                           </div>
@@ -451,13 +457,13 @@ function App() {
 
                     <div className="flex flex-wrap gap-2 text-[11px]">
                       <span className="px-3 py-1 rounded-full border border-[var(--orange)] bg-white text-[var(--orange)]">
-                        Promociones por paquete (web + backend + soporte).
+                        Planes según tu tipo de negocio (ventas, citas, soporte).
                       </span>
                       <span className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-slate-700">
-                        Precios accesibles según alcance y complejidad.
+                        Ideal para responder preguntas frecuentes y capturar prospectos.
                       </span>
                       <span className="px-3 py-1 rounded-full border border-[var(--navy)] bg-white text-[var(--navy)]">
-                        Ingeniería aplicada, no “solo código”.
+                        Suena humano, trabaja en serio.
                       </span>
                     </div>
                   </div>
@@ -472,11 +478,14 @@ function App() {
                 <div className="rounded-3xl p-6 md:p-8">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
                     <div className="md:flex-1">
-                      <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">Pide una propuesta (sin fricción).</h2>
+                      <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">
+                        Pide una propuesta para LIA (sin fricción).
+                      </h2>
                       <p className="mt-2 text-sm md:text-base text-slate-700 max-w-2xl">
-                        Envíanos tu idea y te respondemos con alcance sugerido, tiempos aproximados y un plan de presupuesto.
-                        También puedes escribir directo al WhatsApp:{" "}
-                        <span className="font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER_DISPLAY}</span>.
+                        Cuéntanos tu negocio y qué quieres que atienda LIA. Te respondemos con un plan simple y claro.
+                        Puedes escribirnos por WhatsApp a cualquiera de estos números:{" "}
+                        <span className="font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER_DISPLAY}</span> o{" "}
+                        <span className="font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER2_DISPLAY}</span>.
                       </p>
 
                       <form onSubmit={onSubmitLead} className="mt-6 grid gap-3 max-w-xl">
@@ -510,7 +519,7 @@ function App() {
                             onChange={(e) => setLeadMsg(e.target.value)}
                             rows={4}
                             className="rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--orange)] focus:border-[var(--orange)]"
-                            placeholder="Cuéntanos qué necesitas y contexto."
+                            placeholder="Cuéntanos qué haces, qué te preguntan los clientes y qué te gustaría que LIA resuelva."
                           />
                         </div>
 
@@ -521,23 +530,44 @@ function App() {
                             onMouseLeave={onInteractiveLeave}
                             className="inline-flex items-center gap-2 rounded-full text-white shadow-lg transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)] px-6 py-3 text-sm font-semibold"
                           >
-                            Enviar por WhatsApp ↗
+                            Enviar al WhatsApp 1 ↗
                           </button>
 
+                          <button
+                            type="button"
+                            onClick={() => openWhatsAppWithLead(WHATSAPP_LINK2)}
+                            onMouseEnter={onInteractiveEnter}
+                            onMouseLeave={onInteractiveLeave}
+                            className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-6 py-3 text-sm font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
+                          >
+                            Enviar al WhatsApp 2 ↗
+                          </button>
+
+                          <p className="text-xs text-slate-500">Si prefieres, también coordinamos una llamada por Meet / Zoom.</p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-3">
                           <a
                             href={WHATSAPP_LINK}
                             target="_blank"
                             rel="noreferrer"
                             onMouseEnter={onInteractiveEnter}
                             onMouseLeave={onInteractiveLeave}
-                            className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-6 py-3 text-sm font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
+                            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                           >
-                            Abrir WhatsApp directo
+                            Abrir chat directo (WhatsApp 1)
                           </a>
 
-                          <p className="text-xs text-slate-500">
-                            Si prefieres, también coordinamos una llamada por Google Meet / Zoom.
-                          </p>
+                          <a
+                            href={WHATSAPP_LINK2}
+                            target="_blank"
+                            rel="noreferrer"
+                            onMouseEnter={onInteractiveEnter}
+                            onMouseLeave={onInteractiveLeave}
+                            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
+                          >
+                            Abrir chat directo (WhatsApp 2)
+                          </a>
                         </div>
                       </form>
                     </div>
@@ -547,7 +577,7 @@ function App() {
                         <p className="text-xs font-semibold text-[var(--navy)]">WhatsApp</p>
 
                         <div className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left">
-                          <p className="text-[11px] text-slate-500">Número</p>
+                          <p className="text-[11px] text-slate-500">Número 1</p>
                           <p className="text-sm font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER_DISPLAY}</p>
                         </div>
 
@@ -559,7 +589,23 @@ function App() {
                           onMouseLeave={onInteractiveLeave}
                           className="w-full inline-flex items-center justify-center gap-2 rounded-full text-white shadow-md transition-colors bg-[var(--navy)] hover:bg-[var(--navy-2)] px-5 py-2.5 text-sm font-semibold"
                         >
-                          Ir al chat ↗
+                          Ir al chat (1) ↗
+                        </a>
+
+                        <div className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left">
+                          <p className="text-[11px] text-slate-500">Número 2</p>
+                          <p className="text-sm font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER2_DISPLAY}</p>
+                        </div>
+
+                        <a
+                          href={WHATSAPP_LINK2}
+                          target="_blank"
+                          rel="noreferrer"
+                          onMouseEnter={onInteractiveEnter}
+                          onMouseLeave={onInteractiveLeave}
+                          className="w-full inline-flex items-center justify-center gap-2 rounded-full text-white shadow-md transition-colors bg-[var(--navy)] hover:bg-[var(--navy-2)] px-5 py-2.5 text-sm font-semibold"
+                        >
+                          Ir al chat (2) ↗
                         </a>
 
                         <div className="w-full">
@@ -572,7 +618,9 @@ function App() {
                               className="h-52 w-52 mx-auto object-contain"
                             />
                           </div>
-                          <p className="mt-2 text-[11px] text-slate-500">QR para abrir el chat en WhatsApp (útil en desktop).</p>
+                          <p className="mt-2 text-[11px] text-slate-500">
+                            QR para abrir el chat (número 1) en WhatsApp.
+                          </p>
                         </div>
 
                         <a
@@ -581,8 +629,18 @@ function App() {
                           rel="noreferrer"
                           className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left text-xs text-slate-700 hover:border-[var(--orange)] transition-colors"
                         >
-                          <span className="text-[11px] text-slate-500 block">Enlace</span>
+                          <span className="text-[11px] text-slate-500 block">Enlace (1)</span>
                           <span className="font-semibold">wa.me/{WHATSAPP_NUMBER_E164}</span>
+                        </a>
+
+                        <a
+                          href={WHATSAPP_LINK2}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left text-xs text-slate-700 hover:border-[var(--orange)] transition-colors"
+                        >
+                          <span className="text-[11px] text-slate-500 block">Enlace (2)</span>
+                          <span className="font-semibold">wa.me/{WHATSAPP_NUMBER2_E164}</span>
                         </a>
                       </div>
                     </div>
@@ -591,7 +649,7 @@ function App() {
               </div>
 
               <p className="mt-6 text-[11px] text-slate-500">
-                © {new Date().getFullYear()} J&amp;D Ingeniería y Consultoría. Servicios orientados a resultados.
+                © {new Date().getFullYear()} J&amp;D Ingeniería y Consultoría. Atención automatizada que se siente humana.
               </p>
             </div>
           </section>
