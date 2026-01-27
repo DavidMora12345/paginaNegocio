@@ -178,11 +178,6 @@ function App() {
     []
   );
 
-  const marqueeTech = useMemo(() => {
-    const base = TECHNOLOGIES.slice(0, 22);
-    return [...base, ...base];
-  }, []);
-
   const openWhatsAppWithLead = (targetLink: string) => {
     const text = [
       "Hola 👋, quiero conocer a LIA (agente recepcionista).",
@@ -420,36 +415,11 @@ function App() {
                           </div>
 
                           <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6 overflow-hidden">
-                            <div className="flex items-center justify-between">
-                              <p className="text-sm font-semibold text-[var(--navy)]">Se conecta con tus herramientas</p>
-                              <p className="text-xs text-slate-500">fluido y sin fricción</p>
-                            </div>
-
-                            <div className="relative mt-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-white">
-                              <div className="marquee-track flex w-[200%] gap-6 py-5">
-                                {marqueeTech.map((tech, idx) => (
-                                  <div key={`${tech.name}-${idx}`} className="flex items-center gap-2 min-w-max px-2">
-                                    <img src={tech.logo} alt={tech.name} className="h-7 w-7 object-contain tech-icon" />
-                                    <span className="text-xs font-medium text-slate-700">{tech.name}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="mt-4 grid grid-cols-2 gap-3 text-[11px] text-slate-700">
-                              <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Atención</span>: rápida y amable
-                              </div>
-                              <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Orden</span>: datos bien guardados
-                              </div>
-                              <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Citas</span>: agenda sin enredos
-                              </div>
-                              <div className="rounded-2xl border border-[var(--border)] bg-white px-3 py-2 shadow-sm">
-                                <span className="font-semibold text-[var(--navy)]">Acompañamiento</span>: soporte por plan
-                              </div>
-                            </div>
+                            <img
+                              src="/LIA.png"
+                              alt="LIA - Agente recepcionista"
+                              className="w-full h-full object-contain rounded-2xl"
+                            />
                           </div>
                         </div>
                       </div>
