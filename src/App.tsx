@@ -3,59 +3,6 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 
 type CursorVariant = "default" | "link";
 
-type Technology = {
-  name: string;
-  logo: string;
-};
-
-const TECHNOLOGIES: Technology[] = [
-  { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-  { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
-  { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-  { name: "C#", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" },
-  { name: "Go", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
-  { name: "Rust", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" },
-  { name: "Ruby", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" },
-  { name: "Kotlin", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" },
-  { name: "Swift", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" },
-  { name: "Dart", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
-  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "Vue.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
-  { name: "Nuxt.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg" },
-  { name: "Angular", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" },
-  { name: "Svelte", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" },
-  { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
-  { name: "Material UI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" },
-  { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "Redux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" },
-  { name: "jQuery", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" },
-  { name: "Flutter", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
-  { name: "Android", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" },
-  { name: "Electron", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" },
-  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "NestJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" },
-  { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
-  { name: "Flask", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" },
-  { name: "Laravel", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" },
-  { name: "Spring", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-  { name: ".NET Core", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
-  { name: "Rails", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-original-wordmark.svg" },
-  { name: "GraphQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
-  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-  { name: "MariaDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg" },
-  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-  { name: "SQLite", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" },
-  { name: "Elasticsearch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg" },
-  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
-  { name: "NGINX", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
-];
-
 const WHATSAPP_NUMBER_E164 = "593979395224";
 const WHATSAPP_NUMBER_DISPLAY = "+593 0979395224";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER_E164}`;
@@ -106,6 +53,289 @@ function CheckItem({ title, text }: { title: string; text: string }) {
   );
 }
 
+function IndustryIcon({ kind }: { kind: "home" | "medical" | "restaurant" | "tools" | "education" | "shop" }) {
+  const common = "h-5 w-5 text-[var(--navy)]";
+  if (kind === "home") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+        <path
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-10.5z"
+        />
+      </svg>
+    );
+  }
+  if (kind === "medical") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M2 12h20" />
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 12h10M12 7v10" opacity="0.35" />
+      </svg>
+    );
+  }
+  if (kind === "restaurant") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 3v8a3 3 0 0 1-3 3H4V3" />
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M11 3v8" />
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M14 3v6a3 3 0 0 0 3 3h1v9" />
+      </svg>
+    );
+  }
+  if (kind === "tools") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+        <path
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.2 2.2-2-2 2.2-2.2z"
+        />
+      </svg>
+    );
+  }
+  if (kind === "education") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 3l10 5-10 5L2 8l10-5z" />
+        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 10v6c0 1.7 2.7 3 6 3s6-1.3 6-3v-6" />
+      </svg>
+    );
+  }
+  return (
+    <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 7h15l-1.5 9h-12L6 7z" />
+      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 7l-2-3H1" />
+      <path
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+      />
+    </svg>
+  );
+}
+
+function IndustryCard({
+  title,
+  points,
+  icon,
+}: {
+  title: string;
+  points: string[];
+  icon: "home" | "medical" | "restaurant" | "tools" | "education" | "shop";
+}) {
+  return (
+    <div className="rounded-2xl border border-[var(--border)] bg-white px-5 py-4 shadow-sm hover-card-effect">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <div className="h-9 w-9 rounded-2xl border border-[var(--border)] bg-white shadow-sm flex items-center justify-center">
+            <IndustryIcon kind={icon} />
+          </div>
+          <p className="text-sm font-semibold text-[var(--navy)]">{title}</p>
+        </div>
+        <span className="text-[11px] text-slate-500">casos típicos</span>
+      </div>
+      <div className="mt-3 grid gap-2 text-[12px] text-slate-700">
+        {points.map((p) => (
+          <div key={p} className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
+            <span className="leading-relaxed">{p}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+type RGB = { r: number; g: number; b: number };
+
+function parseCssColorToRgb(input: string): RGB | null {
+  const s = input.trim();
+  if (!s) return null;
+
+  if (s.startsWith("#")) {
+    const hex = s.slice(1);
+    const full =
+      hex.length === 3
+        ? hex
+            .split("")
+            .map((c) => c + c)
+            .join("")
+        : hex.length === 6
+          ? hex
+          : null;
+    if (!full) return null;
+    const n = Number.parseInt(full, 16);
+    if (Number.isNaN(n)) return null;
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+
+  const rgbMatch = s.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)/i);
+  if (rgbMatch) {
+    return {
+      r: Math.max(0, Math.min(255, Number(rgbMatch[1]))),
+      g: Math.max(0, Math.min(255, Number(rgbMatch[2]))),
+      b: Math.max(0, Math.min(255, Number(rgbMatch[3]))),
+    };
+  }
+
+  return null;
+}
+
+function rgba(c: RGB, a: number) {
+  return `rgba(${c.r}, ${c.g}, ${c.b}, ${a})`;
+}
+
+type NodePoint = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  r: number;
+};
+
+function NodeMeshBackground() {
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const pointsRef = useRef<NodePoint[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const sizeRef = useRef({ w: 0, h: 0, dpr: 1 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const root = document.documentElement;
+    const styles = getComputedStyle(root);
+
+    const navyRaw = styles.getPropertyValue("--navy").trim();
+    const orangeRaw = styles.getPropertyValue("--orange").trim();
+
+    const navy = parseCssColorToRgb(navyRaw) ?? { r: 8, g: 25, b: 56 };
+    const orange = parseCssColorToRgb(orangeRaw) ?? { r: 255, g: 122, b: 31 };
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const setup = () => {
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(1, Math.floor(rect.width));
+      const h = Math.max(1, Math.floor(rect.height));
+
+      sizeRef.current = { w, h, dpr };
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const density = 21000;
+      const count = Math.max(70, Math.min(150, Math.floor((w * h) / density)));
+      const pts: NodePoint[] = [];
+
+      for (let i = 0; i < count; i++) {
+const speed = 0.03 + Math.random() * 0.045;
+        const angle = Math.random() * Math.PI * 2;
+        pts.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          r: 1.2 + Math.random() * 0.8,
+        });
+      }
+
+      pointsRef.current = pts;
+    };
+
+    const draw = () => {
+      const { w, h } = sizeRef.current;
+      const pts = pointsRef.current;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const maxDist = Math.min(190, Math.max(140, Math.floor(Math.sqrt(w * h) / 5.4)));
+
+      for (const p of pts) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10;
+        if (p.y > h + 10) p.y = -10;
+      }
+
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > maxDist * maxDist) continue;
+
+          const d = Math.sqrt(d2);
+          let alpha = (1 - d / maxDist) * 0.24;
+          ctx.strokeStyle = rgba(orange, Math.max(0, Math.min(0.62, alpha)));
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+
+      for (const p of pts) {
+        let alpha = 0.78;
+        ctx.fillStyle = rgba(navy, alpha);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const loop = () => {
+      draw();
+      rafRef.current = window.requestAnimationFrame(loop);
+    };
+
+    setup();
+    loop();
+
+    const onResize = () => setup();
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
+    };
+}, []);
+
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+<canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-[0.67]" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 10%, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.20) 30%, rgba(255,255,255,0.58) 66%, rgba(255,255,255,0.84) 100%)",
+          mixBlendMode: "multiply",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.32) 56%, rgba(255,255,255,0.72) 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
 function App() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState<CursorVariant>("default");
@@ -129,15 +359,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!hasFinePointer) return;
-
     const handleMove = (event: MouseEvent) => {
       setCursorPos({ x: event.clientX, y: event.clientY });
     };
 
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
-  }, [hasFinePointer]);
+  }, []);
 
   const cursorSize = cursorVariant === "default" ? 20 : 34;
 
@@ -150,6 +378,7 @@ function App() {
 
   const heroReveal = useScrollReveal();
   const softwareReveal = useScrollReveal();
+  const industriesReveal = useScrollReveal();
   const contactReveal = useScrollReveal();
 
   const onInteractiveEnter = () => {
@@ -170,21 +399,57 @@ function App() {
 
   const liaBenefits = useMemo(
     () => [
-      { title: "Responde al instante:", text: "atiende a tus clientes por WhatsApp aunque tú estés ocupado." },
-      { title: "Hace las preguntas correctas:", text: "entiende qué necesita la persona sin marearla." },
-      { title: "No se le va nada:", text: "va anotando datos importantes y deja todo ordenado." },
-      { title: "Agenda por ti:", text: "si quieren una cita, la deja lista y tú solo confirmas." },
+      { title: "Responde al instante:", text: "no se te van clientes por “ya te respondo”." },
+      { title: "Califica al interesado:", text: "pregunta lo justo para saber si es cliente real." },
+      { title: "Deja todo ordenado:", text: "toma datos y contexto para que tú solo cierres." },
+      { title: "Agenda y confirma:", text: "si hay cita, la deja encaminada y sin ida y vuelta." },
+    ],
+    []
+  );
+
+  const industries = useMemo(
+    () => [
+      {
+        title: "Inmobiliarias",
+        icon: "home" as const,
+        points: ["Responde por propiedades", "Filtra interesados reales", "Agenda visitas y recorridos"],
+      },
+      {
+        title: "Centros médicos",
+        icon: "medical" as const,
+        points: ["Agenda citas", "Confirma horarios", "Responde preguntas frecuentes"],
+      },
+      {
+        title: "Restaurantes",
+        icon: "restaurant" as const,
+        points: ["Toma reservas", "Horarios y ubicación", "Menú y consultas rápidas"],
+      },
+      {
+        title: "Servicios técnicos",
+        icon: "tools" as const,
+        points: ["Recibe pedidos", "Prioriza urgencias", "Coordina visitas y horarios"],
+      },
+      {
+        title: "Educación",
+        icon: "education" as const,
+        points: ["Información de cursos", "Inscripciones", "Horarios y requisitos"],
+      },
+      {
+        title: "Tiendas",
+        icon: "shop" as const,
+        points: ["Estado de pedidos", "Cambios y devoluciones", "Soporte post-venta"],
+      },
     ],
     []
   );
 
   const openWhatsAppWithLead = (targetLink: string) => {
     const text = [
-      "Hola 👋, quiero conocer a LIA (agente recepcionista).",
+      "Hola 👋, quiero implementar LIA para vender más por WhatsApp.",
       leadName ? `Nombre: ${leadName}` : null,
       leadEmail ? `Email: ${leadEmail}` : null,
       leadMsg ? `Mensaje: ${leadMsg}` : null,
-      "Interés: LIA para mi negocio",
+      "Interés: LIA (recepcionista) - demo y propuesta",
     ]
       .filter(Boolean)
       .join("\n");
@@ -218,25 +483,9 @@ function App() {
           box-shadow: 0 18px 32px rgba(0,0,0,0.10);
           border-color: var(--orange);
         }
-        .tech-icon {
-          filter: grayscale(55%);
-          opacity: 0.85;
-          transition: all 0.25s ease;
-        }
-        .tech-icon:hover {
-          filter: grayscale(0%);
-          opacity: 1;
-          transform: scale(1.08);
-        }
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        .marquee-track {
-          animation: marquee 26s linear infinite;
-          will-change: transform;
-        }
       `}</style>
+
+<NodeMeshBackground />
 
       {hasFinePointer && (
         <div
@@ -266,6 +515,7 @@ function App() {
               <div className="hidden md:flex items-center gap-6 text-xs font-medium">
                 {[
                   { href: "#software", label: "Agente LIA" },
+                  { href: "#industrias", label: "Industrias" },
                   { href: "#contact", label: "Contacto" },
                 ].map((item) => (
                   <a
@@ -288,7 +538,7 @@ function App() {
                 onMouseLeave={onInteractiveLeave}
                 className="hidden md:inline-flex text-xs px-4 py-2 rounded-full text-white font-semibold shadow-md transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)]"
               >
-                Ver cómo tener a LIA
+                Quiero una demo para vender más
               </a>
             </nav>
           </div>
@@ -303,22 +553,22 @@ function App() {
               <div className="max-w-3xl space-y-6">
                 <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.24em] text-white bg-[var(--navy)] px-4 py-1 rounded-full">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                  AGENTE IA · LIA RECEPCIONISTA
+                  NO PIERDAS VENTAS · WHATSAPP 24/7
                 </p>
 
                 <h1 className="text-4xl md:text-6xl font-semibold leading-[1.05] text-[var(--navy)]">
-                  Atiende a tus clientes{" "}
-                  <span className="text-[var(--orange)]">por WhatsApp</span> con LIA,{" "}
-                  <span className="text-[var(--orange)]">tu recepcionista</span>.
+                  No pierdas más ventas por responder tarde.{" "}
+                  <span className="text-[var(--orange)]">LIA atiende</span> y te deja{" "}
+                  <span className="text-[var(--orange)]">listo para cerrar</span> por WhatsApp 24/7.
                 </h1>
 
                 <div className="space-y-3 max-w-xl">
                   <p className="text-base md:text-lg text-slate-700">
-                    LIA contesta rápido, pregunta lo necesario, toma los datos y deja todo listo para que tú solo
-                    cierres la venta o confirmes una cita.
+                    Mientras tú trabajas (o duermes), LIA responde, hace preguntas simples y ordena todo para que tu equipo
+                    solo entre a cerrar o confirmar.
                   </p>
                   <p className="text-sm md:text-base text-slate-700 font-medium">
-                    Para el cliente se siente como hablar con una persona: simple, claro y directo.
+                    Ideal para negocios en Cuenca, Guayaquil y todo Ecuador que reciben chats a cada rato.
                   </p>
                 </div>
 
@@ -330,7 +580,7 @@ function App() {
                     onMouseLeave={onInteractiveLeave}
                     className="inline-flex items-center justify-center gap-2 rounded-full text-white shadow-lg transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)] px-6 py-3 text-sm font-semibold"
                   >
-                    Pedir info de LIA <span className="text-base">↗</span>
+                    Quiero recuperar ventas ↗
                   </a>
 
                   <a
@@ -347,15 +597,15 @@ function App() {
                 <div className="flex flex-wrap gap-2 pt-1 text-[11px]">
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                    Responde 24/7
+                    Respuesta inmediata
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--navy)]" />
-                    Deja todo ordenado
+                    Citas y leads ordenados
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-3 py-1 shadow-sm text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                    Agenda y confirma citas
+                    Tu equipo cierra más rápido
                   </span>
                 </div>
               </div>
@@ -378,11 +628,11 @@ function App() {
                     <div className="flex items-end justify-between gap-6 flex-wrap">
                       <div>
                         <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">
-                          LIA, el agente recepcionista que no se cansa.
+                          LIA, la recepcionista que te cuida las ventas.
                         </h2>
                         <p className="mt-2 text-sm md:text-base text-slate-700 max-w-2xl">
-                          Cuando alguien te escribe, LIA le responde al momento, entiende lo que busca y guía la conversación.
-                          Si el cliente ya habló antes, LIA reconoce el contexto y sigue sin volver a preguntar lo mismo.
+                          Cuando alguien escribe, LIA responde al momento y guía la conversación. Y lo más importante:
+                          te deja la conversación “ordenada” para que tú o tu equipo solo entren a cerrar.
                         </p>
                       </div>
 
@@ -393,7 +643,7 @@ function App() {
                         onMouseLeave={onInteractiveLeave}
                         className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-4 py-2 text-xs font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                       >
-                        Quiero LIA para mi negocio ↗
+                        Quiero una demo ↗
                       </a>
                     </div>
 
@@ -402,9 +652,8 @@ function App() {
                         <div className="grid md:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                              En simple: LIA es como tu primera línea de atención. Contesta, pregunta, registra y organiza.
-                              Y si la conversación ya necesita a una persona, te la pasa con todo listo para que tú solo entres
-                              a rematar.
+                              En simple: LIA atiende primero, hace preguntas claras y registra lo importante.
+                              Si ya toca que entre una persona, te pasa el caso “listo para rematar”.
                             </p>
 
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -415,11 +664,7 @@ function App() {
                           </div>
 
                           <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6 overflow-hidden">
-                            <img
-                              src="/LIA.png"
-                              alt="LIA - Agente recepcionista"
-                              className="w-full h-full object-contain rounded-2xl"
-                            />
+                            <img src="/LIA.png" alt="LIA - Agente recepcionista" className="w-full h-full object-contain rounded-2xl" />
                           </div>
                         </div>
                       </div>
@@ -427,15 +672,63 @@ function App() {
 
                     <div className="flex flex-wrap gap-2 text-[11px]">
                       <span className="px-3 py-1 rounded-full border border-[var(--orange)] bg-white text-[var(--orange)]">
-                        Planes según tu tipo de negocio (ventas, citas, soporte).
+                        Enfocado en ventas: respuesta rápida + seguimiento.
                       </span>
                       <span className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-slate-700">
-                        Ideal para responder preguntas frecuentes y capturar prospectos.
+                        Útil si recibes muchos mensajes al día.
                       </span>
                       <span className="px-3 py-1 rounded-full border border-[var(--navy)] bg-white text-[var(--navy)]">
                         Suena humano, trabaja en serio.
                       </span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="industrias" className="mt-20 md:mt-24">
+            <div ref={industriesReveal.ref} className={revealClasses(industriesReveal.isVisible)}>
+              <div className="rounded-3xl border border-[var(--border)] bg-white shadow-sm">
+                <div className="rounded-3xl p-6 md:p-8">
+                  <div className="flex items-end justify-between gap-6 flex-wrap">
+                    <div>
+                      <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">
+                        Industrias donde LIA te ayuda a cerrar más.
+                      </h2>
+                      <p className="mt-2 text-sm md:text-base text-slate-700 max-w-2xl">
+                        Si tu negocio vive de WhatsApp, LIA te ayuda a no perder chats y a convertirlos en citas, pedidos o
+                        prospectos listos.
+                      </p>
+                    </div>
+
+                    <a
+                      href="#contact"
+                      onClick={(e) => handleNavClick(e, "#contact")}
+                      onMouseEnter={onInteractiveEnter}
+                      onMouseLeave={onInteractiveLeave}
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-4 py-2 text-xs font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
+                    >
+                      Ver si aplica a mi negocio ↗
+                    </a>
+                  </div>
+
+                  <div className="mt-6 grid md:grid-cols-3 gap-4">
+                    {industries.map((i) => (
+                      <IndustryCard key={i.title} title={i.title} points={i.points} icon={i.icon} />
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2 text-[11px]">
+                    <span className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-slate-700">
+                      Te sirve si pierdes clientes por tiempos de respuesta.
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-[var(--border)] bg-white text-slate-700">
+                      Te sirve si tu equipo no alcanza a contestar todo.
+                    </span>
+                    <span className="px-3 py-1 rounded-full border border-[var(--orange)] bg-white text-[var(--orange)]">
+                      Te sirve si quieres cerrar más con el mismo flujo de chats.
+                    </span>
                   </div>
                 </div>
               </div>
@@ -449,11 +742,11 @@ function App() {
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
                     <div className="md:flex-1">
                       <h2 className="text-2xl md:text-3xl font-semibold text-[var(--navy)]">
-                        Pide una propuesta para LIA (sin fricción).
+                        Hablemos: ¿cuántos chats estás perdiendo al día?
                       </h2>
                       <p className="mt-2 text-sm md:text-base text-slate-700 max-w-2xl">
-                        Cuéntanos tu negocio y qué quieres que atienda LIA. Te respondemos con un plan simple y claro.
-                        Puedes escribirnos por WhatsApp a cualquiera de estos números:{" "}
+                        Llena esto y te abrimos WhatsApp con el mensaje listo. También puedes escribir directo a cualquiera
+                        de estos números:{" "}
                         <span className="font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER_DISPLAY}</span> o{" "}
                         <span className="font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER2_DISPLAY}</span>.
                       </p>
@@ -471,7 +764,7 @@ function App() {
                           </div>
 
                           <div className="grid gap-1.5">
-                            <label className="text-xs font-semibold text-slate-700">Email</label>
+                            <label className="text-xs font-semibold text-slate-700">Email (opcional)</label>
                             <input
                               value={leadEmail}
                               onChange={(e) => setLeadEmail(e.target.value)}
@@ -489,7 +782,7 @@ function App() {
                             onChange={(e) => setLeadMsg(e.target.value)}
                             rows={4}
                             className="rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--orange)] focus:border-[var(--orange)]"
-                            placeholder="Cuéntanos qué haces, qué te preguntan los clientes y qué te gustaría que LIA resuelva."
+                            placeholder="Ej: agendar citas, responder precios, tomar reservas, filtrar clientes, etc."
                           />
                         </div>
 
@@ -500,7 +793,7 @@ function App() {
                             onMouseLeave={onInteractiveLeave}
                             className="inline-flex items-center gap-2 rounded-full text-white shadow-lg transition-colors bg-[var(--orange)] hover:bg-[var(--orange-2)] px-6 py-3 text-sm font-semibold"
                           >
-                            Enviar al WhatsApp 1 ↗
+                            Enviar por WhatsApp ↗
                           </button>
 
                           <button
@@ -510,7 +803,7 @@ function App() {
                             onMouseLeave={onInteractiveLeave}
                             className="inline-flex items-center gap-2 rounded-full border border-[var(--navy)] bg-white px-6 py-3 text-sm font-semibold text-[var(--navy)] shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                           >
-                            Enviar al WhatsApp 2 ↗
+                            Enviar al otro número ↗
                           </button>
 
                           <p className="text-xs text-slate-500">Si prefieres, también coordinamos una llamada por Meet / Zoom.</p>
@@ -525,7 +818,7 @@ function App() {
                             onMouseLeave={onInteractiveLeave}
                             className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                           >
-                            Abrir chat directo (WhatsApp 1)
+                            Abrir chat directo (1)
                           </a>
 
                           <a
@@ -536,7 +829,7 @@ function App() {
                             onMouseLeave={onInteractiveLeave}
                             className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:border-[var(--orange)] hover:text-[var(--orange)] transition-colors"
                           >
-                            Abrir chat directo (WhatsApp 2)
+                            Abrir chat directo (2)
                           </a>
                         </div>
                       </form>
@@ -547,7 +840,7 @@ function App() {
                         <p className="text-xs font-semibold text-[var(--navy)]">WhatsApp</p>
 
                         <div className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left">
-                          <p className="text-[11px] text-slate-500">Número 1</p>
+                          <p className="text-[11px] text-slate-500">Número</p>
                           <p className="text-sm font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER_DISPLAY}</p>
                         </div>
 
@@ -563,7 +856,7 @@ function App() {
                         </a>
 
                         <div className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-left">
-                          <p className="text-[11px] text-slate-500">Número 2</p>
+                          <p className="text-[11px] text-slate-500">Número</p>
                           <p className="text-sm font-semibold text-[var(--navy)]">{WHATSAPP_NUMBER2_DISPLAY}</p>
                         </div>
 
@@ -588,9 +881,7 @@ function App() {
                               className="h-52 w-52 mx-auto object-contain"
                             />
                           </div>
-                          <p className="mt-2 text-[11px] text-slate-500">
-                            QR para abrir el chat (número 1) en WhatsApp.
-                          </p>
+                          <p className="mt-2 text-[11px] text-slate-500">QR para abrir el chat (número 1) en WhatsApp.</p>
                         </div>
 
                         <a
@@ -619,7 +910,7 @@ function App() {
               </div>
 
               <p className="mt-6 text-[11px] text-slate-500">
-                © {new Date().getFullYear()} J&amp;D Ingeniería y Consultoría. Atención automatizada que se siente humana.
+                © {new Date().getFullYear()} J&amp;D Ingeniería y Consultoría. Hecho para responder rápido y vender mejor.
               </p>
             </div>
           </section>
