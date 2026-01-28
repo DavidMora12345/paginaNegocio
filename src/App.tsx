@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import LiaMorph from "./components/LiaMorph";
 
 type CursorVariant = "default" | "link";
 
@@ -161,9 +162,9 @@ function parseCssColorToRgb(input: string): RGB | null {
     const full =
       hex.length === 3
         ? hex
-            .split("")
-            .map((c) => c + c)
-            .join("")
+          .split("")
+          .map((c) => c + c)
+          .join("")
         : hex.length === 6
           ? hex
           : null;
@@ -231,12 +232,12 @@ function NodeMeshBackground() {
       canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const density = 21000;
+      const density = 30000;
       const count = Math.max(70, Math.min(150, Math.floor((w * h) / density)));
       const pts: NodePoint[] = [];
 
       for (let i = 0; i < count; i++) {
-const speed = 0.03 + Math.random() * 0.045;
+        const speed = 0.03 + Math.random() * 0.045;
         const angle = Math.random() * Math.PI * 2;
         pts.push({
           x: Math.random() * w,
@@ -312,11 +313,11 @@ const speed = 0.03 + Math.random() * 0.045;
       window.removeEventListener("resize", onResize);
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     };
-}, []);
+  }, []);
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-<canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-[0.67]" />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-[0.67]" />
       <div
         className="absolute inset-0"
         style={{
@@ -359,13 +360,29 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!hasFinePointer) return;
+
+    let raf = 0;
+
     const handleMove = (event: MouseEvent) => {
-      setCursorPos({ x: event.clientX, y: event.clientY });
+      if (raf) return;
+
+      const x = event.clientX;
+      const y = event.clientY;
+
+      raf = window.requestAnimationFrame(() => {
+        setCursorPos({ x, y });
+        raf = 0;
+      });
     };
 
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
+    window.addEventListener("mousemove", handleMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [hasFinePointer]);
 
   const cursorSize = cursorVariant === "default" ? 20 : 34;
 
@@ -465,9 +482,8 @@ function App() {
 
   return (
     <div
-      className={`relative min-h-screen overflow-hidden font-sans text-slate-900 ${
-        hasFinePointer ? "cursor-none" : "cursor-auto"
-      } bg-[var(--bg)]`}
+      className={`relative min-h-screen overflow-hidden font-sans text-slate-900 ${hasFinePointer ? "cursor-none" : "cursor-auto"
+        } bg-[var(--bg)]`}
     >
       <style>{`
         body {
@@ -485,15 +501,14 @@ function App() {
         }
       `}</style>
 
-<NodeMeshBackground />
+      <NodeMeshBackground />
 
       {hasFinePointer && (
         <div
-          className={`pointer-events-none fixed z-[9999] rounded-full border-2 ${
-            cursorVariant === "default"
-              ? "border-[var(--orange)] bg-[var(--orange)]"
-              : "border-[var(--navy)] bg-[var(--navy)]"
-          }`}
+          className={`pointer-events-none fixed z-[9999] rounded-full border-2 ${cursorVariant === "default"
+            ? "border-[var(--orange)] bg-[var(--orange)]"
+            : "border-[var(--navy)] bg-[var(--navy)]"
+            }`}
           style={cursorStyle}
         />
       )}
@@ -663,9 +678,10 @@ function App() {
                             </div>
                           </div>
 
-                          <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6 overflow-hidden">
-                            <img src="/LIA.png" alt="LIA - Agente recepcionista" className="w-full h-full object-contain rounded-2xl" />
+                          <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6 overflow-hidden min-h-[320px] md:min-h-[360px]">
+                            <LiaMorph />
                           </div>
+
                         </div>
                       </div>
                     </div>
